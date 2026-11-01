@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Calculator</title>
+
+    <style>
+        body {
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            font-family: Arial;
+        }
+
+        .calculator {
+            max-width: 280px;
+            margin: 60px auto;
+            padding: 20px;
+            background: linear-gradient(145deg, #111827, #312e81);
+            border-radius: 25px;
+            box-shadow: 0 0 25px #6366f1;
+        }
+
+        #display {
+            width: 90%;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 24px;
+            background: #020617;
+            color: #00ffcc;
+            text-align: right;
+            border: 2px solid #22d3ee;
+            border-radius: 12px;
+        }
+
+        #buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 20px;
+            color: white;
+            background: linear-gradient(135deg, #06b6d4, #7c3aed);
+            border: none;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="calculator">
+    <h2>🧮 My Calculator</h2>
+    <input id="display" readonly>
+
+    <div id="buttons"></div>
+</div>
+
+<a href="index.html" style="color:white;">⬅ Back to Home</a>
+
+<script>
+const values = [
+    "7", "8", "9", "/",
+    "4", "5", "6", "*",
+    "1", "2", "3", "-",
+    "C", "0", "=", "+"
+];
+
+const area = document.getElementById("buttons");
+const display = document.getElementById("display");
+
+values.forEach(function(value) {
+    const button = document.createElement("button");
+    button.innerText = value;
+
+    button.onclick = function() {
+        if (value === "C") {
+            display.value = "";
+        } else if (value === "=") {
+            try {
+                if (!/^[0-9+\-*/.() ]+$/.test(display.value)) {
+                    throw new Error();
+                }
+                display.value = Function(
+                    '"use strict"; return (' + display.value + ')'
+                )();
+            } catch {
+                display.value = "Error";
+            }
+        } else {
+            display.value += value;
+        }
+    };
+
+    area.appendChild(button);
+});
+</script>
+
+</body>
+</html>

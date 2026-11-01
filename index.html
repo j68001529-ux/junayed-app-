@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUNAYED APP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="clock">00:00:00</div>
+    <div id="calendar">Today's Date</div>
+<button onclick="toggleTheme()">🌙 Dark / Light Mode</button>
+  <button onclick="showNotification()">
+   <button id="bellButton" onclick="showNotification()">
+    🔔
+    <span id="notificationCount">1</span>
+   </button> 
+
+<div id="notification"></div>
+</button>
+
+<div id="notification"></div>
+    <div class="welcome-section">
+        <div class="app-logo">J</div>
+        <h1>JUNAYED APP</h1>
+        <p>Welcome to My Digital World</p>
+        <span>✨ Your Smart App Experience ✨</span>
+    </div>
+
+    <div class="profile-section">
+        <div class="profile-avatar">H</div>
+        <h2>HOWLADER</h2>
+        <p>App Owner</p>
+        <span class="owner-badge">👑 OFFICIAL OWNER</span>
+    </div>
+
+    <h1>Welcome!</h1>
+
+    <p id="message">My Demo App</p>
+
+    <button onclick="changeText()">Change Text</button>
+    <button onclick="changeColor()">Change Color</button>
+    <button onclick="resetColor()">Reset Color</button>
+
+    <div class="image-card">
+        <div>
+            MY APP
+            <p>Welcome to my world</p>
+        </div>
+    </div>
+
+    <img id="myImage" width="250" alt="My Picture">
+
+    <button onclick="showImage()">Show Image</button>
+<div class="weather-card">
+    <h2>🌦️ Local Weather</h2>
+
+    <p id="weatherLocation">তোমার অবস্থান অপেক্ষায়...</p>
+
+    <h1 id="temperature">--°C</h1>
+
+    <p id="weatherStatus">আবহাওয়ার তথ্য পাওয়া যায়নি</p>
+
+    <button onclick="getWeather()">
+        📍 আমার এলাকার আবহাওয়া দেখুন
+    </button>
+</div>
+    <div class="app-dashboard">
+
+        <a href="todo.html" class="app-card">
+            <span>📁</span>
+            <h3>To-Do List</h3>
+            <p>Manage your tasks</p>
+        </a>
+
+        <a href="calculator.html" class="app-card">
+            <span>🧮</span>
+            <h3>Calculator</h3>
+            <p>Quick calculations</p>
+        </a>
+
+        <a href="stopwatch.html" class="app-card">
+            <span>⏱️</span>
+            <h3>Stopwatch</h3>
+            <p>Track your time</p>
+        </a>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+  <div id="loader">
+    <h1>JUNAYED APP</h1>
+    <p>Loading Your Experience...</p>
+    <div class="loading-bar"></div>
+  </div>
+</html>
