@@ -1,14 +1,14 @@
 console.log("Hello World!");
 
-alert("আমার ওয়েবসাইট চালু হয়েছে!");
-
 function showMessage() {
     alert("তুমি সফলভাবে বাটনে ক্লিক করেছো!");
 }
 
 function changeText() {
-    document.getElementById("message").innerText =
-    "Hello! Welcome to my app!";
+    const message = document.getElementById("message");
+    if (message) {
+        message.innerText = "Hello! Welcome to my app!";
+    }
 }
 
 function changeColor() {
@@ -20,47 +20,42 @@ function resetColor() {
 }
 
 function showImage() {
-    document.querySelector(".image-card").innerHTML =
-        "<div>🌄 BEAUTIFUL VIEW<p>Welcome to my world</p></div>";
+    const image = document.querySelector(".image-card");
+    if (image) {
+        image.innerHTML =
+            "<div>🌄 BEAUTIFUL VIEW<p>Welcome to my world</p></div>";
+    }
 }
 
+// Clock
 function updateClock() {
-    const now = new Date();
+    const clock = document.getElementById("clock");
+    if (!clock) return;
 
-    document.getElementById("clock").innerText =
-        now.toLocaleTimeString("en-BD", {
-            hour12: true
-        });
+    clock.innerText = new Date().toLocaleTimeString("en-BD", {
+        hour12: true
+    });
 }
 
 setInterval(updateClock, 1000);
-
 updateClock();
+
+// Calendar
 function updateCalendar() {
-    const today = new Date();
+    const calendar = document.getElementById("calendar");
+    if (!calendar) return;
 
-    document.getElementById("calendar").innerText =
-        today.toLocaleDateString("bn-BD", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        });
-}
-
-function updateCalendar() {
-    const today = new Date();
-
-    document.getElementById("calendar").innerText =
-        today.toLocaleDateString("en-US", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        });
+    calendar.innerText = new Date().toLocaleDateString("bn-BD", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
 }
 
 updateCalendar();
+
+// Calculator
 const buttons = [
     "7", "8", "9", "/",
     "4", "5", "6", "*",
@@ -70,39 +65,53 @@ const buttons = [
 
 const area = document.getElementById("buttons");
 
-buttons.forEach(function(value) {
-    const button = document.createElement("button");
-    button.innerText = value;
+if (area) {
+    buttons.forEach(function(value) {
+        const button = document.createElement("button");
+        button.innerText = value;
 
-    button.onclick = function() {
-        const display = document.getElementById("display");
+        button.onclick = function() {
+            const display = document.getElementById("display");
+            if (!display) return;
 
-        if (value === "C") {
-            display.value = "";
-        } else if (value === "=") {
-            try {
-                display.value = Function(
-                    '"use strict"; return (' + display.value + ')'
-                )();
-            } catch {
-                display.value = "Error";
+            if (value === "C") {
+                display.value = "";
+            } else if (value === "=") {
+                try {
+                    const expression = display.value;
+
+                    if (!/^[0-9+\-*/().\s]+$/.test(expression)) {
+                        throw new Error("Invalid expression");
+                    }
+
+                    display.value = Function(
+                        '"use strict"; return (' + expression + ')'
+                    )();
+                } catch {
+                    display.value = "Error";
+                }
+            } else {
+                display.value += value;
             }
-        } else {
-            display.value += value;
-        }
-    };
+        };
 
-    area.appendChild(button);
-});
+        area.appendChild(button);
+    });
+}
+
+// Stopwatch
 let seconds = 0;
 let stopwatchInterval = null;
 
 function updateTimer() {
+    const timer = document.getElementById("timer");
+    if (!timer) return;
+
     let h = Math.floor(seconds / 3600);
     let m = Math.floor((seconds % 3600) / 60);
     let s = seconds % 60;
 
-    document.getElementById("timer").innerText =
+    timer.innerText =
         String(h).padStart(2, "0") + ":" +
         String(m).padStart(2, "0") + ":" +
         String(s).padStart(2, "0");
@@ -129,9 +138,13 @@ function resetTimer() {
 }
 
 updateTimer();
+
+// Theme
 function toggleTheme() {
     document.body.classList.toggle("dark-mode");
 }
+
+// Loader
 window.addEventListener("load", function() {
     const loader = document.getElementById("loader");
 
@@ -141,13 +154,14 @@ window.addEventListener("load", function() {
         }, 3000);
     }
 });
-let notificationNumber = 1;
 
-
+// Notification
 function showNotification() {
     const notice = document.getElementById("notification");
     const count = document.getElementById("notificationCount");
     const bell = document.getElementById("bellButton");
+
+    if (!notice || !count || !bell) return;
 
     notice.innerText = "🎉 Welcome to Junayed APP!";
     notice.classList.add("show");
@@ -161,23 +175,26 @@ function showNotification() {
         notice.classList.remove("show");
     }, 3000);
 }
+
+// Weather
 function getWeather() {
-  
     const locationText = document.getElementById("weatherLocation");
     const temperature = document.getElementById("temperature");
     const status = document.getElementById("weatherStatus");
+
+    if (!locationText || !temperature || !status) return;
 
     locationText.innerText = "লোকেশন খোঁজা হচ্ছে...";
     status.innerText = "অপেক্ষা করো...";
 
     if (!navigator.geolocation) {
-        locationText.innerText = "তোমার ব্রাউজার লোকেশন সমর্থন করে না।";
+        locationText.innerText =
+            "তোমার ব্রাউজার লোকেশন সমর্থন করে না।";
         return;
     }
 
     navigator.geolocation.getCurrentPosition(
         async function(position) {
-          alert("Location Found!");
             try {
                 const lat = position.coords.latitude;
                 const lon = position.coords.longitude;
@@ -207,7 +224,8 @@ function getWeather() {
                     "📍 তোমার বর্তমান অবস্থান";
 
             } catch (error) {
-                status.innerText = "আবহাওয়ার তথ্য পাওয়া যায়নি।";
+                status.innerText =
+                    "আবহাওয়ার তথ্য পাওয়া যায়নি।";
             }
         },
 
