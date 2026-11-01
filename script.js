@@ -1,92 +1,3 @@
-console.log("Hello World!");
-
-alert("আমার ওয়েবসাইট চালু হয়েছে!");
-
-function showMessage() {
-    alert("তুমি সফলভাবে বাটনে ক্লিক করেছো!");
-}
-
-function changeText() {
-    document.getElementById("message").innerText =
-    "Hello! Welcome to my app!";
-}
-
-function changeColor() {
-    document.body.style.background = "purple";
-}
-
-function resetColor() {
-    document.body.style.background = "";
-}
-
-function showImage() {
-    document.querySelector(".image-card").innerHTML =
-        "<div>🌄 BEAUTIFUL VIEW<p>Welcome to my world</p></div>";
-}
-
-function updateClock() {
-    const now = new Date();
-
-    document.getElementById("clock").innerText =
-        now.toLocaleTimeString("en-BD", {
-            hour12: true
-        });
-}
-
-setInterval(updateClock, 1000);
-
-updateClock();
-function updateCalendar() {
-    const today = new Date();
-
-    document.getElementById("calendar").innerText =
-        today.toLocaleDateString("bn-BD", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        });
-}
-
-function updateCalendar() {
-    const today = new Date();
-
-    document.getElementById("calendar").innerText =
-        today.toLocaleDateString("en-US", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        });
-}
-
-updateCalendar();
-const buttons = [
-    "7", "8", "9", "/",
-    "4", "5", "6", "*",
-    "1", "2", "3", "-",
-    "C", "0", "=", "+"
-];
-
-const area = document.getElementById("buttons");
-
-buttons.forEach(function(value) {
-    const button = document.createElement("button");
-    button.innerText = value;
-
-    button.onclick = function() {
-        const display = document.getElementById("display");
-
-        if (value === "C") {
-            display.value = "";
-        } else if (value === "=") {
-            try {
-                display.value = Function(
-                    '"use strict"; return (' + display.value + ')'
-                )();
-            } catch {
-                display.value = "Error";
-            }
         } else {
             display.value += value;
         }
@@ -149,7 +60,7 @@ function showNotification() {
     const count = document.getElementById("notificationCount");
     const bell = document.getElementById("bellButton");
 
-    notice.innerText = "🎉 Welcome to JUNAYED APP!";
+    notice.innerText = "🎉 Welcome to Junayed APP!";
     notice.classList.add("show");
 
     count.innerText = "0";
@@ -162,27 +73,40 @@ function showNotification() {
     }, 3000);
 }
 function getWeather() {
+  
     const locationText = document.getElementById("weatherLocation");
     const temperature = document.getElementById("temperature");
     const status = document.getElementById("weatherStatus");
+
+    locationText.innerText = "লোকেশন খোঁজা হচ্ছে...";
+    status.innerText = "অপেক্ষা করো...";
 
     if (!navigator.geolocation) {
         locationText.innerText = "তোমার ব্রাউজার লোকেশন সমর্থন করে না।";
         return;
     }
 
-    locationText.innerText = "তোমার অবস্থান খোঁজা হচ্ছে...";
-
     navigator.geolocation.getCurrentPosition(
         async function(position) {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-
+          alert("Location Found!");
             try {
-                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=auto`;
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+
+                const url =
+                    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=auto`;
 
                 const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error("Weather API error");
+                }
+
                 const data = await response.json();
+
+                if (!data.current) {
+                    throw new Error("Weather data missing");
+                }
 
                 temperature.innerText =
                     data.current.temperature_2m + "°C";
@@ -190,15 +114,26 @@ function getWeather() {
                 status.innerText =
                     "আবহাওয়ার কোড: " + data.current.weather_code;
 
-                locationText.innerText = "📍 তোমার বর্তমান অবস্থান";
+                locationText.innerText =
+                    "📍 তোমার বর্তমান অবস্থান";
+
             } catch (error) {
                 status.innerText = "আবহাওয়ার তথ্য পাওয়া যায়নি।";
             }
         },
 
-        function() {
+        function(error) {
             locationText.innerText =
-                "লোকেশন অনুমতি পাওয়া যায়নি।";
+                "লোকেশন পাওয়া যায়নি। আবার চেষ্টা করো।";
+
+            status.innerText =
+                "Location error: " + error.message;
+        },
+
+        {
+            enableHighAccuracy: false,
+            timeout: 15000,
+            maximumAge: 60000
         }
     );
 }
