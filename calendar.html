@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090909">
+<title>HOWLADER X — Calendar</title>
+
+<style>
+:root{
+  --bg:#090909;
+  --panel:#141414;
+  --gold:#d4af37;
+  --gold2:#f5d778;
+  --text:#f5f5f5;
+  --muted:#999;
+  --border:rgba(212,175,55,.22);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:radial-gradient(circle at top,#211b0d,transparent 45%),var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+}
+a{color:var(--gold2);text-decoration:none}
+header{
+  padding:18px 22px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.brand{font-size:21px;font-weight:bold;color:var(--gold2)}
+.header-actions{display:flex;align-items:center;gap:12px}
+main{max-width:900px;margin:auto;padding:22px 15px}
+h1{color:var(--gold2)}
+h3{color:var(--gold2)}
+.subtitle{color:var(--muted);font-size:13px;line-height:1.7}
+.user-info{color:var(--muted);font-size:12px;overflow-wrap:anywhere}
+.calendar,.panel{
+  background:rgba(20,20,20,.96);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:16px;
+  margin-top:18px;
+}
+.monthbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+.monthbar h2{font-size:18px;color:var(--gold2)}
+button{
+  background:#222;
+  color:var(--gold2);
+  border:1px solid var(--border);
+  padding:10px 13px;
+  border-radius:8px;
+  cursor:pointer;
+}
+button:hover{background:#302a17}
+button:disabled{opacity:.6;cursor:not-allowed}
+.weekdays,.days{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+}
+.weekdays div{
+  text-align:center;
+  color:var(--gold2);
+  font-size:12px;
+  padding:12px 0;
+}
+.day{
+  min-height:60px;
+  border:1px solid #292929;
+  border-radius:8px;
+  padding:7px;
+  background:#101010;
+  color:#ddd;
+  text-align:left;
+}
+.day:hover{border-color:var(--gold)}
+.day.muted{opacity:.35}
+.day.today{border-color:var(--gold);background:#292313}
+.day.selected{background:#403417;border-color:var(--gold2)}
+.dot{
+  display:block;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--gold2);
+  margin-top:8px;
+}
+input,textarea{
+  width:100%;
+  background:#090909;
+  color:white;
+  border:1px solid #333;
+  border-radius:8px;
+  padding:12px;
+  margin:8px 0 13px;
+  outline:none;
+}
+input:focus,textarea:focus{border-color:var(--gold)}
+label{color:#ccc;font-size:13px}
+textarea{min-height:75px;resize:vertical}
+.primary{
+  background:var(--gold);
+  color:#111;
+  font-weight:bold;
+}
+.primary:hover{background:var(--gold2)}
+.event{
+  background:#1c1a13;
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:12px;
+  margin-top:10px;
+}
+.event strong{color:var(--gold2)}
+.event p{
+  font-size:13px;
+  color:#bbb;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+.event button{font-size:11px;margin-top:5px}
+.empty{color:var(--muted);font-size:13px}
+.footer{text-align:center;color:#666;font-size:11px;padding:25px}
+#message{color:var(--gold2);font-size:13px;margin-top:12px}
+@media(max-width:500px){
+  .calendar{padding:9px}
+  .weekdays,.days{gap:4px}
+  .day{min-height:47px;padding:5px;font-size:11px}
+  .monthbar h2{font-size:15px}
+  header{padding:15px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">HOWLADER X</div>
+  <div class="header-actions">
+    <a href="dashboard.html">← Dashboard</a>
+    <button id="logoutButton" type="button">Logout</button>
+  </div>
+</header>
+
+<main>
+  <h1>My Calendar</h1>
+  <p class="subtitle">
+    Save and manage your important dates and events.
+  </p>
+  <p class="user-info" id="userInfo">Verifying account...</p>
+
+  <section class="calendar">
+    <div class="monthbar">
+      <button id="prev" type="button">←</button>
+      <h2 id="monthTitle"></h2>
+      <button id="next" type="button">→</button>
+    </div>
+
+    <div class="weekdays">
+      <div>Sun</div>
+      <div>Mon</div>
+      <div>Tue</div>
+      <div>Wed</div>
+      <div>Thu</div>
+      <div>Fri</div>
+      <div>Sat</div>
+    </div>
+
+    <div class="days" id="days"></div>
+  </section>
+
+  <section class="panel">
+    <h3 id="selectedTitle">Select a Date</h3>
+
+    <label for="eventTitle">Event Name</label>
+    <input
+      id="eventTitle"
+      maxlength="100"
+      placeholder="e.g. Meeting, Birthday"
+    >
+
+    <label for="eventDetails">Event Details</label>
+    <textarea
+      id="eventDetails"
+      maxlength="1000"
+      placeholder="Write event details..."
+    ></textarea>
+
+    <button class="primary" id="saveEvent" type="button">
+      Save Event
+    </button>
+
+    <div id="eventList"></div>
+    <p id="message" role="status" aria-live="polite"></p>
+  </section>
+</main>
+
+<footer class="footer">© 2026 HOWLADER X · Calendar</footer>
+
+<script type="module">
+import { auth } from "./firebase.js";
+
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+const KEY = "howladerCalendarEventsV1";
+
+const daysEl = document.getElementById("days");
+const titleEl = document.getElementById("monthTitle");
+const selectedTitle = document.getElementById("selectedTitle");
+const eventTitle = document.getElementById("eventTitle");
+const eventDetails = document.getElementById("eventDetails");
+const eventList = document.getElementById("eventList");
+const message = document.getElementById("message");
+
+let viewDate = new Date();
+let selectedDate = dateKey(new Date());
+let events = loadEvents();
+let authenticated = false;
+
+function dateKey(date){
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function loadEvents(){
+  try{
+    const data = JSON.parse(localStorage.getItem(KEY) || "[]");
+    return Array.isArray(data) ? data : [];
+  }catch{
+    return [];
+  }
+}
+
+function saveStorage(){
+  localStorage.setItem(KEY, JSON.stringify(events));
+}
+
+function renderCalendar(){
+  const year = viewDate.getFullYear();
+  const month = viewDate.getMonth();
+
+  titleEl.textContent = new Intl.DateTimeFormat("en-US", {
+    month:"long",
+    year:"numeric"
+  }).format(viewDate);
+
+  daysEl.replaceChildren();
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const totalDays = new Date(year, month + 1, 0).getDate();
+  const previousTotal = new Date(year, month, 0).getDate();
+  const today = dateKey(new Date());
+
+  for(let i = 0; i < 42; i++){
+    let number, cellDate, muted = false;
+
+    if(i < firstDay){
+      number = previousTotal - firstDay + i + 1;
+      cellDate = new Date(year, month - 1, number);
+      muted = true;
+    }else if(i >= firstDay + totalDays){
+      number = i - firstDay - totalDays + 1;
+      cellDate = new Date(year, month + 1, number);
+      muted = true;
+    }else{
+      number = i - firstDay + 1;
+      cellDate = new Date(year, month, number);
+    }
+
+    const key = dateKey(cellDate);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "day";
+
+    if(muted) button.classList.add("muted");
+    if(key === today) button.classList.add("today");
+    if(key === selectedDate) button.classList.add("selected");
+
+    button.textContent = number;
+
+    if(events.some(event => event.date === key)){
+      const dot = document.createElement("span");
+      dot.className = "dot";
+      button.appendChild(dot);
+    }
+
+    button.addEventListener("click", () => {
+      selectedDate = key;
+
+      if(muted){
+        viewDate = new Date(
+          cellDate.getFullYear(),
+          cellDate.getMonth(),
+          1
+        );
+      }
+
+      renderCalendar();
+      renderEvents();
+    });
+
+    daysEl.appendChild(button);
+  }
+}
+
+function renderEvents(){
+  selectedTitle.textContent = "Selected Date: " + selectedDate;
+  eventList.replaceChildren();
+
+  const selected = events.filter(event => event.date === selectedDate);
+
+  if(selected.length === 0){
+    const empty = document.createElement("p");
+    empty.className = "empty";
+    empty.textContent = "No events scheduled for this date.";
+    eventList.appendChild(empty);
+    return;
+  }
+
+  selected.forEach(event => {
+    const box = document.createElement("div");
+    box.className = "event";
+
+    const name = document.createElement("strong");
+    name.textContent = event.title;
+
+    const details = document.createElement("p");
+    details.textContent = event.details || "No additional details.";
+
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.textContent = "Delete Event";
+
+    remove.addEventListener("click", () => {
+      if(!confirm("Are you sure you want to delete this event?")){
+        return;
+      }
+
+      events = events.filter(item => item.id !== event.id);
+      saveStorage();
+      renderCalendar();
+      renderEvents();
+    });
+
+    box.append(name, details, remove);
+    eventList.appendChild(box);
+  });
+}
+
+document.getElementById("prev").addEventListener("click", () => {
+  viewDate = new Date(
+    viewDate.getFullYear(),
+    viewDate.getMonth() - 1,
+    1
+  );
+  renderCalendar();
+});
+
+document.getElementById("next").addEventListener("click", () => {
+  viewDate = new Date(
+    viewDate.getFullYear(),
+    viewDate.getMonth() + 1,
+    1
+  );
+  renderCalendar();
+});
+
+document.getElementById("saveEvent").addEventListener("click", () => {
+  if(!authenticated){
+    message.textContent = "Please wait for account verification.";
+    return;
+  }
+
+  const title = eventTitle.value.trim();
+  const details = eventDetails.value.trim();
+
+  if(!title){
+    message.textContent = "Please enter an event name.";
+    eventTitle.focus();
+    return;
+  }
+
+  events.push({
+    id: Date.now().toString() + Math.random().toString(16).slice(2),
+    date: selectedDate,
+    title,
+    details
+  });
+
+  saveStorage();
+  eventTitle.value = "";
+  eventDetails.value = "";
+  message.textContent = "Event saved successfully.";
+
+  renderCalendar();
+  renderEvents();
+});
+
+document.getElementById("logoutButton").addEventListener("click", async () => {
+  const button = document.getElementById("logoutButton");
+  button.disabled = true;
+
+  try{
+    await signOut(auth);
+    localStorage.removeItem("howladerUserName");
+    localStorage.removeItem("howladerUserEmail");
+    window.location.href = "login.html";
+  }catch(error){
+    message.textContent = "Logout failed. Please try again.";
+    button.disabled = false;
+  }
+});
+
+onAuthStateChanged(auth, user => {
+  if(!user){
+    window.location.href = "login.html";
+    return;
+  }
+
+  authenticated = true;
+
+  document.getElementById("userInfo").textContent =
+    "Logged in: " + (user.email || "");
+
+  localStorage.setItem(
+    "howladerUserName",
+    user.displayName || "User"
+  );
+
+  localStorage.setItem(
+    "howladerUserEmail",
+    user.email || ""
+  );
+
+  renderCalendar();
+  renderEvents();
+});
+
+renderCalendar();
+renderEvents();
+</script>
+
+</body>
+</html>
