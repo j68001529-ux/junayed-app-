@@ -1,0 +1,568 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090909">
+<title>HOWLADER X — Dashboard</title>
+
+<style>
+:root {
+  --bg:#090909;
+  --panel:#121212;
+  --gold:#d4af37;
+  --gold2:#f5d778;
+  --text:#f5f5f5;
+  --muted:#999;
+  --border:rgba(212,175,55,.2);
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+}
+a {text-decoration:none;color:inherit}
+.layout {display:flex;min-height:100vh}
+.sidebar {
+  width:245px;
+  background:#0d0d0d;
+  border-right:1px solid var(--border);
+  padding:25px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+.brand {
+  font-size:23px;
+  font-weight:800;
+  color:var(--gold2);
+  letter-spacing:1px;
+}
+.brand small {
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:3px;
+  margin-top:6px;
+}
+.nav-title {
+  color:#777;
+  font-size:10px;
+  letter-spacing:2px;
+  margin:10px 10px;
+}
+.nav a {
+  display:block;
+  padding:13px 12px;
+  border-radius:9px;
+  color:#bbb;
+  margin:4px 0;
+  font-size:14px;
+}
+.nav a:hover,.nav a.active {
+  background:#1c1a13;
+  color:var(--gold2);
+  border:1px solid var(--border);
+}
+.sidebar-bottom {
+  margin-top:auto;
+  color:#777;
+  font-size:11px;
+  line-height:1.7;
+  padding:10px;
+}
+.main {flex:1;min-width:0}
+.topbar {
+  min-height:72px;
+  border-bottom:1px solid var(--border);
+  padding:15px 28px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+.topbar h2 {font-size:18px;margin:0}
+.account-area {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.profile {
+  border:1px solid var(--border);
+  border-radius:30px;
+  padding:9px 14px;
+  color:var(--gold2);
+  font-size:12px;
+  max-width:220px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.logout-btn {
+  border:1px solid #8b3434;
+  border-radius:30px;
+  padding:9px 15px;
+  background:#241313;
+  color:#ffaaaa;
+  font-size:12px;
+  cursor:pointer;
+}
+.logout-btn:hover {background:#3a1919}
+.content {
+  max-width:1200px;
+  padding:30px;
+  margin:auto;
+}
+.welcome {
+  background:linear-gradient(120deg,#1b1911,#111);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:30px;
+  margin-bottom:25px;
+  position:relative;
+  overflow:hidden;
+}
+.welcome:after {
+  content:"✦";
+  position:absolute;
+  right:35px;
+  top:15px;
+  font-size:90px;
+  color:rgba(212,175,55,.12);
+}
+.welcome h1 {
+  margin:0 0 12px;
+  color:var(--gold2);
+  font-size:28px;
+}
+.welcome p {
+  color:#aaa;
+  line-height:1.7;
+  max-width:600px;
+  font-size:14px;
+}
+.account-info {
+  margin-top:12px;
+  color:#d4af37;
+  font-size:12px;
+  overflow-wrap:anywhere;
+}
+.section-title {
+  font-size:16px;
+  margin:28px 0 15px;
+}
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+.stat,.app-card,.activity {
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:20px;
+}
+.stat-label {color:#999;font-size:12px}
+.stat-number {
+  color:var(--gold2);
+  font-size:30px;
+  font-weight:bold;
+  margin-top:12px;
+}
+.stat-note {color:#777;font-size:11px;margin-top:7px}
+.apps {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+.app-card {
+  display:block;
+  transition:.2s;
+  min-height:155px;
+}
+.app-card:hover {
+  transform:translateY(-4px);
+  border-color:var(--gold);
+  background:#181710;
+}
+.app-icon {
+  font-size:27px;
+  margin-bottom:18px;
+}
+.app-card h3 {
+  margin:0 0 8px;
+  color:var(--gold2);
+  font-size:15px;
+}
+.app-card p {
+  margin:0;
+  color:#999;
+  font-size:12px;
+  line-height:1.6;
+}
+.bottom-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin-top:25px;
+}
+.activity h3 {
+  color:var(--gold2);
+  font-size:15px;
+  margin-top:0;
+}
+.activity p {
+  color:#999;
+  font-size:13px;
+  line-height:1.7;
+}
+.quick-link {
+  display:inline-block;
+  color:var(--gold2);
+  font-size:12px;
+  margin-top:8px;
+}
+.footer {
+  text-align:center;
+  padding:25px;
+  color:#666;
+  font-size:11px;
+}
+#statusMessage {
+  color:var(--gold2);
+  font-size:13px;
+  margin-top:12px;
+}
+@media(max-width:850px) {
+  .sidebar {width:190px}
+  .apps {grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px) {
+  .sidebar {
+    width:65px;
+    padding:18px 7px;
+    align-items:center;
+  }
+  .brand {font-size:11px;text-align:center}
+  .brand small,.nav-title,.nav-text,.sidebar-bottom {display:none}
+  .nav {width:100%}
+  .nav a {text-align:center;font-size:19px;padding:12px 4px}
+  .topbar {padding:14px}
+  .content {padding:16px}
+  .welcome {padding:23px}
+  .welcome h1 {font-size:23px}
+  .welcome:after {right:10px;font-size:55px}
+  .stats {grid-template-columns:1fr}
+  .apps {grid-template-columns:1fr 1fr;gap:9px}
+  .app-card {padding:14px;min-height:145px}
+  .bottom-grid {grid-template-columns:1fr}
+  .profile {max-width:125px}
+  .logout-btn {padding:9px 11px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<aside class="sidebar">
+  <div class="brand">
+    HOWLADER X
+    <small>AI WORKSPACE</small>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-title">WORKSPACE</div>
+    <a class="active" href="dashboard.html">⌂ <span class="nav-text">Dashboard</span></a>
+    <a href="chat.html">✦ <span class="nav-text">AI Assistant</span></a>
+    <a href="notes.html">▤ <span class="nav-text">My Notes</span></a>
+    <a href="todo.html">✓ <span class="nav-text">Tasks</span></a>
+    <a href="calendar.html">▦ <span class="nav-text">Calendar</span></a>
+
+    <div class="nav-title">ACCOUNT</div>
+    <a href="index.html">← <span class="nav-text">Home</span></a>
+    <a href="admin.html">⚙ <span class="nav-text">Admin Panel</span></a>
+  </nav>
+
+  <div class="sidebar-bottom">
+    HOWLADER X<br>
+    Premium Workspace<br>
+    Version 1.0
+  </div>
+</aside>
+
+<main class="main">
+
+  <header class="topbar">
+    <h2>Dashboard</h2>
+
+    <div class="account-area">
+      <div class="profile" id="profileName">Loading...</div>
+      <button class="logout-btn" id="logoutButton" type="button">
+        Logout ↗
+      </button>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <section class="welcome">
+      <h1 id="greeting">স্বাগতম!</h1>
+
+      <p>
+        তোমার AI ও Productivity Workspace-এ স্বাগতম।
+        এখান থেকে Notes, Tasks এবং AI Assistant ব্যবহার করতে পারবে।
+      </p>
+
+      <div class="account-info" id="accountEmail"></div>
+      <div id="statusMessage" aria-live="polite"></div>
+    </section>
+
+    <h3 class="section-title">Workspace Overview</h3>
+
+    <section class="stats">
+
+      <div class="stat">
+        <div class="stat-label">TOTAL NOTES</div>
+        <div class="stat-number" id="noteCount">—</div>
+        <div class="stat-note">Saved notes on this device</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">TOTAL TASKS</div>
+        <div class="stat-number" id="taskCount">—</div>
+        <div class="stat-note">Available local task data</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">COMPLETED TASKS</div>
+        <div class="stat-number" id="completedCount">—</div>
+        <div class="stat-note">Completed local tasks</div>
+      </div>
+
+    </section>
+
+    <h3 class="section-title">Your Applications</h3>
+
+    <section class="apps">
+
+      <a class="app-card" href="chat.html">
+        <div class="app-icon">✦</div>
+        <h3>AI Assistant</h3>
+        <p>Chat with HOWLADER AI demo assistant.</p>
+      </a>
+
+      <a class="app-card" href="notes.html">
+        <div class="app-icon">▤</div>
+        <h3>Smart Notes</h3>
+        <p>Create, edit and organize your notes.</p>
+      </a>
+
+      <a class="app-card" href="todo.html">
+        <div class="app-icon">✓</div>
+        <h3>Task Manager</h3>
+        <p>Manage your daily tasks and progress.</p>
+      </a>
+
+      <a class="app-card" href="calendar.html">
+        <div class="app-icon">▦</div>
+        <h3>Calendar</h3>
+        <p>Open your calendar workspace.</p>
+      </a>
+
+      <a class="app-card" href="admin.html">
+        <div class="app-icon">⚙</div>
+        <h3>Admin Panel</h3>
+        <p>Open the admin demo interface.</p>
+      </a>
+
+      <a class="app-card" href="index.html">
+        <div class="app-icon">⌂</div>
+        <h3>Main Website</h3>
+        <p>Return to the HOWLADER X homepage.</p>
+      </a>
+
+    </section>
+
+    <section class="bottom-grid">
+
+      <div class="activity">
+        <h3>Quick Start</h3>
+        <p>
+          শুরু করতে AI Assistant খুলে প্রশ্ন করো অথবা
+          Notes ও Tasks-এ তোমার কাজ সাজিয়ে রাখো।
+        </p>
+        <a class="quick-link" href="chat.html">
+          Open AI Assistant →
+        </a>
+      </div>
+
+      <div class="activity">
+        <h3>System Status</h3>
+        <p>
+          Dashboard-এর Notes ও Tasks-এর পরিসংখ্যান
+          এই ডিভাইসের LocalStorage থেকে নেওয়া হয়।
+          Live server sync এখনো সংযুক্ত নয়।
+        </p>
+        <span class="quick-link">LOCAL MODE</span>
+      </div>
+
+    </section>
+
+  </div>
+
+  <footer class="footer">
+    © 2026 HOWLADER X · Premium AI Workspace
+  </footer>
+
+</main>
+</div>
+
+<script type="module">
+
+import { auth } from "./firebase.js";
+
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+const greeting = document.getElementById("greeting");
+const profile = document.getElementById("profileName");
+const accountEmail = document.getElementById("accountEmail");
+const statusMessage = document.getElementById("statusMessage");
+const logoutButton = document.getElementById("logoutButton");
+
+// Firebase login verification
+onAuthStateChanged(auth, (user) => {
+
+  if (!user) {
+    window.location.replace("login.html");
+    return;
+  }
+
+  const email = user.email || "";
+  const name =
+    user.displayName ||
+    (email ? email.split("@")[0] : "User");
+
+  greeting.textContent = "স্বাগতম, " + name + "!";
+  profile.textContent = name;
+  accountEmail.textContent = email
+    ? "Account: " + email
+    : "Account verified";
+
+  localStorage.setItem("howladerUserName", name);
+  localStorage.setItem("howladerUserEmail", email);
+
+  statusMessage.textContent = "Firebase account connected";
+});
+
+// Logout
+logoutButton.addEventListener("click", async () => {
+
+  logoutButton.disabled = true;
+  logoutButton.textContent = "Logging out...";
+
+  try {
+
+    await signOut(auth);
+
+    localStorage.removeItem("howladerUserName");
+    localStorage.removeItem("howladerUserEmail");
+
+    window.location.replace("login.html");
+
+  } catch (error) {
+
+    statusMessage.textContent =
+      "লগআউট করা যায়নি। আবার চেষ্টা করো।";
+
+    logoutButton.disabled = false;
+    logoutButton.textContent = "Logout ↗";
+
+  }
+
+});
+
+// Read saved local data
+function readArray(keys) {
+
+  for (const key of keys) {
+
+    try {
+
+      const value = JSON.parse(
+        localStorage.getItem(key) || "null"
+      );
+
+      if (Array.isArray(value)) return value;
+
+      if (value && Array.isArray(value.tasks)) {
+        return value.tasks;
+      }
+
+      if (value && Array.isArray(value.notes)) {
+        return value.notes;
+      }
+
+    } catch (error) {
+      // Ignore invalid local data
+    }
+
+  }
+
+  return null;
+}
+
+const notes = readArray(["howladerNotesV1"]);
+
+const tasks = readArray([
+  "howladerTasksV1",
+  "howladerTodoV1",
+  "todoList",
+  "tasks"
+]);
+
+document.getElementById("noteCount").textContent =
+  notes ? notes.length : "0";
+
+if (tasks) {
+
+  document.getElementById("taskCount").textContent =
+    tasks.length;
+
+  const completed = tasks.filter(task => {
+
+    if (typeof task === "object" && task !== null) {
+
+      return task.completed === true ||
+             task.done === true ||
+             task.status === "completed";
+
+    }
+
+    return false;
+
+  }).length;
+
+  document.getElementById("completedCount").textContent =
+    completed;
+
+} else {
+
+  document.getElementById("taskCount").textContent = "—";
+  document.getElementById("completedCount").textContent = "—";
+
+}
+
+</script>
+
+</body>
+</html>
