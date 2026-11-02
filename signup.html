@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - JUNAYED APP</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: #090909;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .signup-box {
+            width: 100%;
+            max-width: 380px;
+            padding: 30px 24px;
+            background: #181818;
+            border: 1px solid #333;
+            border-radius: 18px;
+            text-align: center;
+        }
+
+        .logo {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 15px;
+            display: grid;
+            place-items: center;
+            border-radius: 18px;
+            background: #7c3aed;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #aaa;
+            margin-bottom: 25px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            border: 1px solid #444;
+            border-radius: 10px;
+            background: #252525;
+            color: white;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #7c3aed;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .login {
+            margin-top: 20px;
+            color: #bbb;
+            font-size: 14px;
+        }
+
+        .login a {
+            color: #a78bfa;
+            text-decoration: none;
+        }
+
+        #message {
+            margin-top: 15px;
+            color: #fca5a5;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="signup-box">
+        <div class="logo">J</div>
+
+        <h1>JUNAYED APP</h1>
+        <p class="subtitle">Create Your Account</p>
+
+        <form id="signupForm">
+            <input
+                type="text"
+                id="name"
+                placeholder="Your Name"
+                required
+            >
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Email Address"
+                required
+            >
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password (at least 6 characters)"
+                minlength="6"
+                required
+            >
+
+            <button type="submit">Create Account</button>
+        </form>
+
+        <p class="login">
+            Already have an account?
+            <a href="login.html">Login</a>
+        </p>
+
+        <p id="message"></p>
+    </div>
+<script type="module">
+import { auth } from "./firebase.js";
+import {
+    createUserWithEmailAndPassword,
+    updateProfile
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+const form = document.getElementById("signupForm");
+const message = document.getElementById("message");
+
+form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    message.textContent = "অ্যাকাউন্ট তৈরি হচ্ছে...";
+
+    try {
+        const result = await createUserWithEmailAndPassword(
+            auth, email, password
+        );
+
+        await updateProfile(result.user, {
+            displayName: name
+        });
+
+        message.textContent = "অ্যাকাউন্ট তৈরি সফল হয়েছে!";
+        window.location.href = "index.html";
+
+    } catch (error) {
+        if (error.code === "auth/email-already-in-use") {
+            message.textContent = "এই ইমেইলে আগে থেকেই অ্যাকাউন্ট আছে।";
+        } else if (error.code === "auth/weak-password") {
+            message.textContent = "পাসওয়ার্ড অন্তত ৬ অক্ষরের হতে হবে।";
+        } else {
+            message.textContent = "অ্যাকাউন্ট তৈরি হয়নি। আবার চেষ্টা করো।";
+        }
+    }
+});
+</script>
+</body>
+</html>
