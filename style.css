@@ -708,3 +708,16 @@ body.light-mode .profile-section h2 {
     0%, 100% { box-shadow: 0 0 12px #d8b45a33; }
     50% { box-shadow: 0 0 27px #d8b45a99; }
 }
+.app-card {
+    display: flex;
+    position: relative;
+    z-index: 11;
+    pointer-events: auto;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.app-card * {
+    pointer-events: none;
+}
