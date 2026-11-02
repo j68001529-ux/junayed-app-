@@ -1,0 +1,901 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090909">
+<title>HOWLADER X — AI Assistant</title>
+
+<style>
+:root {
+  --bg:#090909;
+  --panel:#121212;
+  --panel2:#191919;
+  --gold:#d4af37;
+  --gold2:#f5d778;
+  --text:#f5f5f5;
+  --muted:#999;
+  --border:rgba(212,175,55,.2);
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+}
+button,input,select {font:inherit}
+button {cursor:pointer}
+.app {display:flex;min-height:100vh}
+.sidebar {
+  width:250px;
+  background:#0d0d0d;
+  border-right:1px solid var(--border);
+  padding:22px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+.brand {
+  color:var(--gold2);
+  font-size:23px;
+  font-weight:800;
+  letter-spacing:1px;
+  padding:5px;
+}
+.brand small {
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:3px;
+  margin-top:5px;
+}
+.new-chat {
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  color:#111;
+  border:0;
+  border-radius:10px;
+  padding:13px;
+  font-weight:bold;
+}
+.side-label {
+  color:var(--muted);
+  font-size:11px;
+  letter-spacing:1.5px;
+  margin:8px 5px;
+}
+.history {flex:1;overflow-y:auto}
+.history-item {
+  padding:11px;
+  border-radius:8px;
+  color:#ccc;
+  font-size:13px;
+  cursor:pointer;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+.history-item:hover,.history-item.active {
+  background:#1c1c1c;
+  color:var(--gold2);
+}
+.nav-link {
+  display:block;
+  text-decoration:none;
+  color:#bbb;
+  padding:10px;
+  border-radius:8px;
+  font-size:13px;
+}
+.nav-link:hover {
+  background:#1c1c1c;
+  color:var(--gold2);
+}
+.main {
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+.topbar {
+  min-height:70px;
+  padding:15px 22px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.top-title {font-size:18px;font-weight:bold}
+.top-actions {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  flex-wrap:wrap;
+}
+.status {
+  color:var(--gold2);
+  font-size:10px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:7px 11px;
+  letter-spacing:1px;
+}
+.language-select {
+  background:#181818;
+  color:var(--gold2);
+  border:1px solid var(--border);
+  padding:9px;
+  border-radius:8px;
+  outline:none;
+}
+.user-email {
+  color:#bbb;
+  font-size:11px;
+  max-width:150px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.logout {
+  background:#241313;
+  border:1px solid #713838;
+  color:#ffaaaa;
+  padding:8px 11px;
+  border-radius:20px;
+  font-size:11px;
+}
+.messages {
+  flex:1;
+  width:100%;
+  max-width:900px;
+  margin:0 auto;
+  padding:28px 22px 20px;
+  overflow-y:auto;
+}
+.welcome {
+  text-align:center;
+  padding:55px 10px 30px;
+}
+.welcome-icon {
+  width:65px;
+  height:65px;
+  border:1px solid var(--gold);
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  margin:0 auto 20px;
+  color:var(--gold2);
+  font-size:28px;
+  box-shadow:0 0 30px rgba(212,175,55,.12);
+}
+.welcome h1 {
+  color:var(--gold2);
+  font-size:30px;
+  margin:0 0 12px;
+}
+.welcome p {
+  color:var(--muted);
+  line-height:1.7;
+  font-size:14px;
+}
+.suggestions {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  max-width:600px;
+  margin:25px auto 0;
+}
+.suggestion {
+  background:var(--panel);
+  border:1px solid var(--border);
+  color:#ddd;
+  padding:15px;
+  border-radius:12px;
+  text-align:left;
+  transition:.2s;
+}
+.suggestion:hover {
+  border-color:var(--gold);
+  color:var(--gold2);
+  transform:translateY(-2px);
+}
+.message {
+  display:flex;
+  gap:12px;
+  margin:18px 0;
+  align-items:flex-start;
+}
+.avatar {
+  width:34px;
+  height:34px;
+  flex-shrink:0;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  font-weight:bold;
+}
+.user .avatar {background:#333;color:white}
+.assistant .avatar {background:var(--gold);color:#111}
+.bubble {
+  background:var(--panel);
+  border:1px solid #252525;
+  border-radius:4px 13px 13px 13px;
+  padding:13px 15px;
+  line-height:1.7;
+  font-size:14px;
+  max-width:100%;
+  overflow-wrap:anywhere;
+  white-space:pre-wrap;
+}
+.user .bubble {
+  background:#1b1a15;
+  border-color:var(--border);
+}
+.composer-area {
+  padding:12px 20px 22px;
+  width:100%;
+  max-width:900px;
+  margin:0 auto;
+}
+.composer {
+  display:flex;
+  gap:10px;
+  background:#151515;
+  border:1px solid var(--border);
+  padding:9px;
+  border-radius:14px;
+}
+.composer input {
+  flex:1;
+  min-width:0;
+  background:transparent;
+  border:0;
+  outline:none;
+  color:white;
+  padding:10px;
+}
+.composer input::placeholder {color:#777}
+.send {
+  border:0;
+  border-radius:10px;
+  padding:0 19px;
+  background:var(--gold);
+  color:#111;
+  font-weight:bold;
+}
+.send:hover {background:var(--gold2)}
+.send:disabled,.logout:disabled {opacity:.5}
+.disclaimer {
+  text-align:center;
+  color:#777;
+  font-size:11px;
+  margin-top:12px;
+  line-height:1.6;
+}
+.typing {color:var(--gold2)}
+.empty-history {
+  color:#777;
+  font-size:12px;
+  padding:10px;
+}
+@media(max-width:700px) {
+  .sidebar {
+    width:65px;
+    padding:15px 7px;
+    align-items:center;
+  }
+  .brand {
+    font-size:12px;
+    text-align:center;
+    padding:0;
+  }
+  .brand small,.side-label,.history,.nav-text {display:none}
+  .new-chat {
+    width:48px;
+    height:43px;
+    padding:0;
+    font-size:20px;
+  }
+  .nav-link {
+    font-size:18px;
+    padding:10px;
+  }
+  .topbar {padding:13px}
+  .messages {padding:15px 12px}
+  .welcome {padding-top:35px}
+  .welcome h1 {font-size:25px}
+  .suggestions {gap:8px}
+  .suggestion {padding:12px 9px;font-size:12px}
+  .composer-area {padding:10px}
+  .bubble {font-size:13px}
+  .user-email {max-width:90px}
+  .status {display:none}
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    scroll-behavior:auto!important;
+    transition:none!important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      HOWLADER X
+      <small>AI WORKSPACE</small>
+    </div>
+
+    <button class="new-chat" id="newChatButton" title="New chat">
+      ＋ <span class="nav-text">New Chat</span>
+    </button>
+
+    <div class="history">
+      <div class="side-label">CHAT HISTORY</div>
+      <div id="historyList"></div>
+    </div>
+
+    <div>
+      <a class="nav-link" href="dashboard.html">⌂ <span class="nav-text">Dashboard</span></a>
+      <a class="nav-link" href="notes.html">▤ <span class="nav-text">Notes</span></a>
+      <a class="nav-link" href="todo.html">✓ <span class="nav-text">Tasks</span></a>
+      <a class="nav-link" href="index.html">← <span class="nav-text">Home</span></a>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div class="top-title">HOWLADER AI</div>
+
+      <div class="top-actions">
+        <span class="user-email" id="userEmail">Checking account...</span>
+
+        <select id="languageMode" class="language-select"
+                aria-label="Response language">
+          <option value="auto">Auto Detect</option>
+          <option value="bn">বাংলা</option>
+          <option value="en">English</option>
+        </select>
+
+        <span class="status">LOCAL DEMO</span>
+
+        <button class="logout" id="logoutButton" type="button">
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <section class="messages" id="messages">
+
+      <div class="welcome" id="welcome">
+        <div class="welcome-icon">✦</div>
+        <h1>কীভাবে সাহায্য করতে পারি?</h1>
+
+        <p>
+          তোমার প্রশ্ন বাংলায় বা ইংরেজিতে লেখো।<br>
+          Auto Detect চালু থাকলে প্রশ্নের ভাষা অনুযায়ী উত্তর দেব।
+        </p>
+
+        <div class="suggestions">
+          <button class="suggestion" data-prompt="আমার দিনের একটি পরিকল্পনা তৈরি করো">
+            📅 দিনের পরিকল্পনা
+          </button>
+
+          <button class="suggestion" data-prompt="Give me some creative ideas">
+            💡 Creative ideas
+          </button>
+
+          <button class="suggestion" data-prompt="আমাকে একটি সুন্দর মেসেজ লিখে দাও">
+            ✍️ মেসেজ লিখে দাও
+          </button>
+
+          <button class="suggestion" data-prompt="Help me stay organized">
+            ✓ Stay organized
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="composer-area">
+      <form class="composer" id="chatForm">
+        <input
+          id="userInput"
+          type="text"
+          placeholder="এখানে প্রশ্ন লেখো..."
+          autocomplete="off"
+          maxlength="2000"
+          required
+        >
+        <button class="send" id="sendButton" type="submit">
+          Send ➤
+        </button>
+      </form>
+
+      <div class="disclaimer">
+        ডেমো সংস্করণ — এখনো আসল AI সংযুক্ত নয়।<br>
+        Demo version — not connected to a live AI model.
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script type="module">
+
+import { auth } from "./firebase.js";
+
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+// Firebase account verification
+const userEmailEl = document.getElementById("userEmail");
+const logoutButton = document.getElementById("logoutButton");
+const formEl = document.getElementById("chatForm");
+const inputEl = document.getElementById("userInput");
+const sendButton = document.getElementById("sendButton");
+
+let authenticated = false;
+
+onAuthStateChanged(auth, (user) => {
+
+  if (!user) {
+    window.location.replace("login.html");
+    return;
+  }
+
+  authenticated = true;
+
+  userEmailEl.textContent = user.email || "Account verified";
+
+  localStorage.setItem(
+    "howladerUserEmail",
+    user.email || ""
+  );
+
+  localStorage.setItem(
+    "howladerUserName",
+    user.displayName ||
+    (user.email ? user.email.split("@")[0] : "User")
+  );
+
+  inputEl.disabled = false;
+  sendButton.disabled = false;
+
+});
+
+// Logout
+logoutButton.addEventListener("click", async () => {
+
+  logoutButton.disabled = true;
+  logoutButton.textContent = "Logging out...";
+
+  try {
+
+    await signOut(auth);
+
+    localStorage.removeItem("howladerUserName");
+    localStorage.removeItem("howladerUserEmail");
+
+    window.location.replace("login.html");
+
+  } catch (error) {
+
+    logoutButton.disabled = false;
+    logoutButton.textContent = "Logout";
+    alert("লগআউট করা যায়নি। আবার চেষ্টা করো।");
+
+  }
+
+});
+
+// Chat system
+const STORAGE_KEY = "howladerChatHistoryV2";
+
+const messagesEl = document.getElementById("messages");
+const historyEl = document.getElementById("historyList");
+const languageEl = document.getElementById("languageMode");
+
+let chats = loadChats();
+let currentChatId = null;
+let waiting = false;
+
+const welcomeHTML = document.getElementById("welcome");
+
+function loadChats() {
+
+  try {
+
+    const saved = JSON.parse(
+      localStorage.getItem(STORAGE_KEY) || "[]"
+    );
+
+    return Array.isArray(saved) ? saved : [];
+
+  } catch (error) {
+
+    return [];
+
+  }
+
+}
+
+function saveChats() {
+
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(chats));
+  } catch (error) {
+    console.error("Chat history could not be saved.");
+  }
+
+}
+
+function makeId() {
+  return Date.now().toString(36) +
+    Math.random().toString(36).slice(2, 7);
+}
+
+function detectLanguage(text) {
+  return /[\u0980-\u09FF]/.test(text) ? "bn" : "en";
+}
+
+function getLanguage(text) {
+
+  const selected = languageEl.value;
+
+  return selected === "auto"
+    ? detectLanguage(text)
+    : selected;
+
+}
+
+function showWelcome() {
+
+  messagesEl.innerHTML = "";
+
+  const welcome = document.createElement("div");
+  welcome.className = "welcome";
+
+  const icon = document.createElement("div");
+  icon.className = "welcome-icon";
+  icon.textContent = "✦";
+
+  const heading = document.createElement("h1");
+  heading.textContent = "কীভাবে সাহায্য করতে পারি?";
+
+  const paragraph = document.createElement("p");
+  paragraph.textContent =
+    "তোমার প্রশ্ন বাংলায় বা ইংরেজিতে লেখো। Auto Detect চালু থাকলে প্রশ্নের ভাষা অনুযায়ী উত্তর দেব।";
+
+  const suggestions = document.createElement("div");
+  suggestions.className = "suggestions";
+
+  const prompts = [
+    "আমার দিনের একটি পরিকল্পনা তৈরি করো",
+    "Give me some creative ideas",
+    "আমাকে একটি সুন্দর মেসেজ লিখে দাও",
+    "Help me stay organized"
+  ];
+
+  const labels = [
+    "📅 দিনের পরিকল্পনা",
+    "💡 Creative ideas",
+    "✍️ মেসেজ লিখে দাও",
+    "✓ Stay organized"
+  ];
+
+  prompts.forEach((prompt, index) => {
+
+    const button = document.createElement("button");
+    button.className = "suggestion";
+    button.textContent = labels[index];
+
+    button.addEventListener("click", () => {
+      sendMessage(prompt);
+    });
+
+    suggestions.appendChild(button);
+
+  });
+
+  welcome.append(icon, heading, paragraph, suggestions);
+  messagesEl.appendChild(welcome);
+
+}
+
+function addMessage(role, text) {
+
+  const row = document.createElement("div");
+  row.className = "message " + role;
+
+  const avatar = document.createElement("div");
+  avatar.className = "avatar";
+  avatar.textContent = role === "user" ? "You" : "HX";
+
+  const bubble = document.createElement("div");
+  bubble.className = "bubble";
+  bubble.textContent = text;
+
+  row.append(avatar, bubble);
+  messagesEl.appendChild(row);
+
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+
+}
+
+function newChat() {
+
+  currentChatId = null;
+  showWelcome();
+
+  inputEl.value = "";
+  inputEl.focus();
+
+  renderHistory();
+
+}
+
+function createChatIfNeeded(text) {
+
+  if (currentChatId) return;
+
+  currentChatId = makeId();
+
+  chats.unshift({
+    id: currentChatId,
+    title: text.slice(0, 35),
+    messages: []
+  });
+
+}
+
+function storeMessage(role, text) {
+
+  const chat = chats.find(
+    item => item.id === currentChatId
+  );
+
+  if (!chat) return;
+
+  chat.messages.push({ role, text });
+
+  saveChats();
+  renderHistory();
+
+}
+
+function openChat(id) {
+
+  if (waiting) return;
+
+  const chat = chats.find(item => item.id === id);
+
+  if (!chat) return;
+
+  currentChatId = id;
+  messagesEl.innerHTML = "";
+
+  chat.messages.forEach(message => {
+
+    if (
+      message &&
+      (message.role === "user" || message.role === "assistant") &&
+      typeof message.text === "string"
+    ) {
+      addMessage(message.role, message.text);
+    }
+
+  });
+
+  renderHistory();
+
+}
+
+function renderHistory() {
+
+  historyEl.innerHTML = "";
+
+  if (!chats.length) {
+
+    const empty = document.createElement("div");
+    empty.className = "empty-history";
+    empty.textContent = "No chats yet";
+
+    historyEl.appendChild(empty);
+    return;
+
+  }
+
+  chats.slice(0, 30).forEach(chat => {
+
+    const item = document.createElement("div");
+
+    item.className =
+      "history-item" +
+      (chat.id === currentChatId ? " active" : "");
+
+    item.textContent = "▸ " + chat.title;
+    item.title = chat.title;
+
+    item.addEventListener("click", () => {
+      openChat(chat.id);
+    });
+
+    historyEl.appendChild(item);
+
+  });
+
+}
+
+function localReply(text, lang) {
+
+  const q = text.toLowerCase();
+
+  if (lang === "bn") {
+
+    if (/হ্যালো|হাই|আসসালামু|সালাম/.test(q)) {
+      return "হ্যালো! HOWLADER AI-তে স্বাগতম। কী জানতে চাও?";
+    }
+
+    if (/নাম|তোমাকে কি বলে/.test(q)) {
+      return "আমার নাম HOWLADER AI। আমি তোমাকে বিভিন্ন কাজে সাহায্য করার জন্য তৈরি একটি ডেমো সহকারী।";
+    }
+
+    if (/সময়|তারিখ|আজকে/.test(q)) {
+      return "আজকের তারিখ ও সময় জানতে তোমার ফোনের ঘড়ি দেখো। চাইলে আমি তোমার দিনের পরিকল্পনা সাজাতে সাহায্য করতে পারি।";
+    }
+
+    if (/পরিকল্পনা|রুটিন|দিনের/.test(q)) {
+      return "তোমার দিনের একটি সহজ পরিকল্পনা:\n\n১. সকালে গুরুত্বপূর্ণ কাজ শেষ করো।\n২. দুপুরে কিছুটা বিশ্রাম নাও।\n৩. বিকেলে শেখা বা কাজের সময় রাখো।\n৪. রাতে পরের দিনের প্রস্তুতি নাও।";
+    }
+
+    if (/মেসেজ|লিখে|চিঠি|উত্তর/.test(q)) {
+      return "অবশ্যই! কাকে মেসেজ পাঠাতে চাও এবং কী বলতে চাও, সেটি লিখে দাও। আমি একটি সুন্দর খসড়া তৈরি করতে সাহায্য করব।";
+    }
+
+    if (/কোড|ওয়েবসাইট|প্রোগ্রাম/.test(q)) {
+      return "তোমার কোড বা সমস্যাটি এখানে পাঠাও। আমি ভুল খুঁজে বুঝিয়ে দিতে এবং সংশোধিত কোড তৈরি করতে সাহায্য করব।";
+    }
+
+    if (/ধন্যবাদ/.test(q)) {
+      return "স্বাগতম! আর কিছু জানতে চাইলে লিখো।";
+    }
+
+    if (/কেমন আছ/.test(q)) {
+      return "আমি ভালো আছি! তুমি কেমন আছো?";
+    }
+
+    return "আমি এখন স্থানীয় ডেমো মোডে কাজ করছি, তাই সব প্রশ্নের নির্ভুল উত্তর দিতে পারি না। আরেকটু বিস্তারিত লিখলে সাহায্য করার চেষ্টা করব।";
+
+  }
+
+  if (/hello|hi|hey|good morning|good evening/.test(q)) {
+    return "Hello! Welcome to HOWLADER AI. What can I help you with today?";
+  }
+
+  if (/your name|who are you/.test(q)) {
+    return "I'm HOWLADER AI, a demo assistant designed to help with everyday tasks.";
+  }
+
+  if (/plan|routine|organize/.test(q)) {
+    return "Here is a simple daily plan:\n\n1. Finish your most important task first.\n2. Take short breaks.\n3. Set aside time to learn something new.\n4. Review your progress in the evening.";
+  }
+
+  if (/write|message|email|letter/.test(q)) {
+    return "Sure! Tell me who the message is for and what you want to say. I'll help you prepare a clear draft.";
+  }
+
+  if (/code|website|javascript|html|css/.test(q)) {
+    return "Share your code or describe the problem. I can help you understand errors and prepare corrected code.";
+  }
+
+  if (/thank/.test(q)) {
+    return "You're welcome! I'm happy to help.";
+  }
+
+  if (/how are you/.test(q)) {
+    return "I'm doing well, thanks for asking! How are you?";
+  }
+
+  return "I'm currently running in local demo mode, so I cannot provide reliable answers to every topic. Please add a little more detail and I'll try to help.";
+
+}
+
+function showTyping(lang) {
+
+  const row = document.createElement("div");
+  row.className = "message assistant";
+  row.id = "typingIndicator";
+
+  const avatar = document.createElement("div");
+  avatar.className = "avatar";
+  avatar.textContent = "HX";
+
+  const bubble = document.createElement("div");
+  bubble.className = "bubble typing";
+  bubble.textContent =
+    lang === "bn" ? "উত্তর তৈরি হচ্ছে..." : "Thinking...";
+
+  row.append(avatar, bubble);
+  messagesEl.appendChild(row);
+
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+
+}
+
+function sendMessage(text) {
+
+  if (!authenticated || !text || waiting) return;
+
+  const lang = getLanguage(text);
+
+  waiting = true;
+  sendButton.disabled = true;
+
+  createChatIfNeeded(text);
+
+  addMessage("user", text);
+  storeMessage("user", text);
+
+  inputEl.value = "";
+  showTyping(lang);
+
+  // Local demo response
+  window.setTimeout(() => {
+
+    const typing = document.getElementById("typingIndicator");
+
+    if (typing) typing.remove();
+
+    const reply = localReply(text, lang);
+
+    addMessage("assistant", reply);
+    storeMessage("assistant", reply);
+
+    waiting = false;
+    sendButton.disabled = false;
+    inputEl.focus();
+
+  }, 650);
+
+}
+
+formEl.addEventListener("submit", event => {
+
+  event.preventDefault();
+
+  sendMessage(inputEl.value.trim());
+
+});
+
+document.getElementById("newChatButton")
+  .addEventListener("click", newChat);
+
+document.querySelectorAll(".suggestion[data-prompt]")
+  .forEach(button => {
+
+    button.addEventListener("click", () => {
+      sendMessage(button.dataset.prompt);
+    });
+
+  });
+
+renderHistory();
+
+</script>
+
+</body>
+</html>
