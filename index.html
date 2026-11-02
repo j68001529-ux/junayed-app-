@@ -1,101 +1,212 @@
+<Skip to main content
+Firebase logo
+Search for products
+Project Overview
+Settings
+Project shortcuts
+Authentication
 
-<!DOCTYPE html>
+
+Product categories
+Databases and storage
+Security
+AI services
+Hosting and serverless
+DevOps and engagement
+Analytics
+Billing plan:Spark
+No cost ($0/month)
+Junayed app
+Authentication
+Users
+Sign-in method
+Templates
+Usage
+Settings
+Settings
+User account management
+User account linking
+User actions
+Blocking functions
+User activity logging
+Sign-up quota
+Password policy
+Domains
+Authorised domains
+SMS
+SMS region policy
+Fraud prevention
+Fraud Defense 
+New name
+Authorised domains
+For security, to use phone, Google or third-party authentication, domains need to be authorised for OAuth redirects. Learn more
+
+Authorised domain	Type	Actions
+localhost	Default	
+junayed-app.firebaseapp.com	Default	
+junayed-app.web.app	Default	
+j68001529-ux.github.io	Custom	
+Supercharge your development! Try Cloud Shell to access the built-in Firebase CLI and run Firebase emulators directly in a virtual machine.
+Upgrade to Firebase Auth with Identity platform to access this feature. Learn more
+Upgrade to Firebase Auth with Identity platform to access this feature. Learn more
+We've updated the name to reflect new capabilities. Your existing integrations, keys and configurations continue to work exactly as before, with no action required on your part.
+Click upgrade to learn how to claim a $300 credit free of charge.
+DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#090909">
     <title>JUNAYED APP</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <div id="clock">00:00:00</div>
-    <div id="calendar">Today's Date</div>
-<button onclick="toggleTheme()">🌙 Dark / Light Mode</button>
-  <button onclick="showNotification()">
-   <button id="bellButton" onclick="showNotification()">
-    🔔
-    <span id="notificationCount">1</span>
-   </button> 
-
-<div id="notification"></div>
-</button>
-
-<div id="notification"></div>
-    <div class="welcome-section">
-        <div class="app-logo">J</div>
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="loader-logo">J</div>
         <h1>JUNAYED APP</h1>
-        <p>Welcome to My Digital World</p>
-        <span>✨ Your Smart App Experience ✨</span>
+        <p>Loading Your Experience...</p>
+        <div class="loading-bar"></div>
     </div>
 
-    <div class="profile-section">
-        <div class="profile-avatar">H</div>
-        <h2>HOWLADER</h2>
-        <p>App Owner</p>
-        <span class="owner-badge">👑 OFFICIAL OWNER</span>
-    </div>
-
-    <h1>Welcome!</h1>
-
-    <p id="message">My Demo App</p>
-
-    <button onclick="changeText()">Change Text</button>
-    <button onclick="changeColor()">Change Color</button>
-    <button onclick="resetColor()">Reset Color</button>
-
-    <div class="image-card">
-        <div>
-            MY APP
-            <p>Welcome to my world</p>
+    <!-- Header -->
+    <header class="top-header">
+        <div class="header-brand">
+            <div class="app-logo">J</div>
+            <span>JUNAYED APP</span>
         </div>
-    </div>
 
-    <img id="myImage" width="250" alt="My Picture">
-
-    <button onclick="showImage()">Show Image</button>
-<div class="weather-card">
-    <h2>🌦️ Local Weather</h2>
-
-    <p id="weatherLocation">তোমার অবস্থান অপেক্ষায়...</p>
-
-    <h1 id="temperature">--°C</h1>
-
-    <p id="weatherStatus">আবহাওয়ার তথ্য পাওয়া যায়নি</p>
-
-    <button onclick="getWeather()">
-        📍 আমার এলাকার আবহাওয়া দেখুন
-    </button>
+        <div class="header-actions">
+            <button onclick="toggleTheme()" aria-label="Change theme">🌙</button>
+            <button id="bellButton" onclick="showNotification()" aria-label="Notifications">
+                🔔
+                <span id="notificationCount">1</span>
+            </button>
+        </div>
+    </header>
+<div style="text-align:center; padding:15px;">
+    <a href="login.html" style="color:#a78bfa;">Login</a>
+    |
+    <a href="signup.html" style="color:#a78bfa;">Create Account</a>
 </div>
-    <div class="app-dashboard">
+    <div id="notification"></div>
 
-        <a href="todo.html" class="app-card">
-            <span>📁</span>
-            <h3>To-Do List</h3>
-            <p>Manage your tasks</p>
-        </a>
+    <main>
 
-        <a href="calculator.html" class="app-card">
-            <span>🧮</span>
-            <h3>Calculator</h3>
-            <p>Quick calculations</p>
-        </a>
+        <!-- Quick Tools: Top Position -->
+        <section class="tools-section">
+            <div class="tools-heading">
+                <span class="tools-icon">⚡</span>
+                <div>
+                    <h2>Quick Tools</h2>
+                    <p>Quick actions for you</p>
+                </div>
+            </div>
 
-        <a href="stopwatch.html" class="app-card">
-            <span>⏱️</span>
-            <h3>Stopwatch</h3>
-            <p>Track your time</p>
-        </a>
+            <p id="message">My Demo App</p>
 
-    </div>
+            <div class="tool-buttons">
+                <button onclick="changeText()">✏️ Text</button>
+                <button onclick="changeColor()">🎨 Color</button>
+                <button onclick="resetColor()">↺ Reset</button>
+            </div>
+        </section>
+
+        <!-- Welcome -->
+        <section class="welcome-section">
+            <span class="owner-badge">✨ YOUR DIGITAL WORLD</span>
+            <h1>Welcome to<br>JUNAYED APP</h1>
+            <p>Your Smart App Experience</p>
+            <div class="welcome-line"></div>
+        </section>
+
+        <!-- Profile -->
+        <section class="profile-section">
+            <div class="profile-avatar">H</div>
+            <h2>HOWLADER</h2>
+            <p>App Owner</p>
+            <span class="owner-badge">👑 OFFICIAL OWNER</span>
+        </section>
+
+        <!-- Clock -->
+        <section class="clock-section">
+            <div class="clock-label">LOCAL TIME</div>
+            <div id="clock">00:00:00</div>
+            <div id="calendar">Today's Date</div>
+        </section>
+
+        <!-- Image Card -->
+        <section class="image-card">
+            <div>
+                <h2>MY APP</h2>
+                <p>Welcome to my world</p>
+            </div>
+        </section>
+
+        <section class="picture-section">
+            <img id="myImage" width="250" alt="My Picture">
+            <button onclick="showImage()">🖼️ Show Image</button>
+        </section>
+
+        <!-- Weather -->
+        <section class="weather-card">
+            <h2>🌦️ Local Weather</h2>
+            <p id="weatherLocation">তোমার অবস্থান অপেক্ষায়...</p>
+            <h1 id="temperature">--°C</h1>
+            <p id="weatherStatus">আবহাওয়ার তথ্য পাওয়া যায়নি</p>
+            <button onclick="getWeather()">📍 আবহাওয়া দেখুন</button>
+        </section>
+
+        <!-- Applications -->
+      <a href="chat.html" class="app-card">
+    <span>🤖</span>
+    <h3>JUNAYED AI</h3>
+    <p>Chat with AI Assistant</p>
+      </a>
+        <section class="dashboard-section">
+            <span class="owner-badge">YOUR COLLECTION</span>
+            <h2>My Applications</h2>
+            <p>Choose your favourite application</p>
+
+            <div class="app-dashboard">
+
+                <a href="todo.html" class="app-card">
+                    <span>📋</span>
+                    <h3>To-Do List</h3>
+                    <p>Manage your tasks</p>
+                </a>
+
+                <a href="calculator.html" class="app-card">
+                    <span>🧮</span>
+                    <h3>Calculator</h3>
+                    <p>Quick calculations</p>
+                </a>
+
+                <a href="stopwatch.html" class="app-card">
+                    <span>⏱️</span>
+                    <h3>Stopwatch</h3>
+                    <p>Track your time</p>
+                </a>
+
+                <a href="music.html" class="app-card">
+                    <span>🎵</span>
+                    <h3>Music Player</h3>
+                    <p>Listen to your music</p>
+                </a>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="app-logo">J</div>
+        <h3>JUNAYED APP</h3>
+        <p>Made with ❤️ by Howlader</p>
+        <small>© 2026 JUNAYED APP. All Rights Reserved.</small>
+    </footer>
 
     <script src="script.js"></script>
-
 </body>
-  <div id="loader">
-    <h1>JUNAYED APP</h1>
-    <p>Loading Your Experience...</p>
-    <div class="loading-bar"></div>
-  </div>
 </html>
