@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,12 +9,12 @@
 <style>
 :root {
     --bg:#080808;
-    --panel:#111111;
+    --panel:#111;
     --panel2:#191919;
     --gold:#D4AF37;
     --gold2:#F5D778;
     --text:#F5F5F5;
-    --muted:#999999;
+    --muted:#999;
     --border:rgba(212,175,55,.24);
 }
 
@@ -33,16 +32,13 @@ body {
     padding-bottom:85px;
 }
 
-button,a {
-    font-family:inherit;
-}
-
 a {
     color:inherit;
     text-decoration:none;
 }
 
 button {
+    font-family:inherit;
     cursor:pointer;
 }
 
@@ -50,8 +46,8 @@ button {
     min-height:65px;
     padding:12px 17px;
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
     background:#0c0c0c;
     border-bottom:1px solid var(--border);
     position:sticky;
@@ -92,11 +88,6 @@ button {
     margin-top:3px;
 }
 
-.header-actions {
-    display:flex;
-    gap:8px;
-}
-
 .header-icon {
     width:36px;
     height:36px;
@@ -125,8 +116,9 @@ button {
     border:1px solid var(--border);
     border-radius:16px;
     background:
-        radial-gradient(circle at 85% 40%,rgba(212,175,55,.16),transparent 35%),
-        linear-gradient(120deg,#211b0c,#111111 65%);
+        radial-gradient(circle at 85% 40%,
+        rgba(212,175,55,.16),transparent 35%),
+        linear-gradient(120deg,#211b0c,#111 65%);
     animation:reveal .6s ease;
 }
 
@@ -159,8 +151,8 @@ button {
     color:rgba(245,215,120,.65);
     font-size:75px;
     font-weight:900;
-    text-shadow:0 0 25px rgba(212,175,55,.3);
     flex-shrink:0;
+    text-shadow:0 0 25px rgba(212,175,55,.3);
     animation:floatGold 4s ease-in-out infinite;
 }
 
@@ -173,7 +165,6 @@ button {
     border:1px solid var(--border);
     border-radius:13px;
     background:linear-gradient(110deg,#18150c,#111);
-    animation:reveal .7s ease;
 }
 
 .profile-avatar {
@@ -187,7 +178,6 @@ button {
     color:#111;
     font-size:25px;
     font-weight:900;
-    box-shadow:0 0 17px rgba(212,175,55,.2);
 }
 
 .profile-info {
@@ -218,18 +208,77 @@ button {
 }
 
 @keyframes reveal {
-    from {opacity:0;transform:translateY(12px);}
-    to {opacity:1;transform:translateY(0);}
+    from {
+        opacity:0;
+        transform:translateY(12px);
+    }
+    to {
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 @keyframes floatGold {
-    0%,100% {transform:translateY(0);}
-    50% {transform:translateY(-7px);}
+    0%,100% {
+        transform:translateY(0);
+    }
+    50% {
+        transform:translateY(-7px);
+    }
 }
 </style>
 </head>
 
+<body>
+
+<header class="top-header">
+    <div class="brand-area">
+        <div class="brand-icon">HX</div>
+
+        <div>
+            <div class="brand-name">HOWLADER X</div>
+            <div class="brand-subtitle">PREMIUM WORKSPACE</div>
+        </div>
+    </div>
+
+    <button class="header-icon"
+        id="refreshButton"
+        type="button"
+        aria-label="Refresh">↻</button>
+</header>
+
+<main class="dashboard-container">
+
+<section class="hero-banner">
+    <div class="hero-content">
+        <div class="hero-label">
+            PREMIUM DIGITAL EXPERIENCE
+        </div>
+
+        <h1>Welcome Back!</h1>
+
+        <p>
+            Your personal workspace.<br>
+            Everything you need, in one place.
+        </p>
+    </div>
+
+    <div class="hero-symbol">HX</div>
+</section>
+
+<section class="profile-card">
+    <div class="profile-avatar" id="profileAvatar">H</div>
+
+    <div class="profile-info">
+        <h2 id="userName">HOWLADER X User</h2>
+        <p id="userEmail">Welcome to your dashboard</p>
+    </div>
+
+    <div class="owner-badge">MEMBER</div>
+</section>
 <style>
+/* SECTION HEADINGS */
+
 .section-heading {
     color:var(--gold2);
     font-size:16px;
@@ -237,6 +286,7 @@ button {
     display:flex;
     align-items:center;
     justify-content:space-between;
+    gap:8px;
 }
 
 .section-heading span {
@@ -244,6 +294,8 @@ button {
     font-size:10px;
     font-weight:normal;
 }
+
+/* STATISTICS */
 
 .stats-grid {
     display:grid;
@@ -282,6 +334,8 @@ button {
     margin-top:5px;
 }
 
+/* INFORMATION */
+
 .info-grid {
     display:grid;
     grid-template-columns:repeat(2,minmax(0,1fr));
@@ -296,7 +350,7 @@ button {
     border-radius:13px;
 }
 
-.info-card .info-icon {
+.info-icon {
     color:var(--gold);
     font-size:23px;
     margin-bottom:12px;
@@ -321,46 +375,11 @@ button {
     font-variant-numeric:tabular-nums;
 }
 
-.quick-grid {
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:10px;
-}
-
-.quick-card {
-    min-height:90px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:9px;
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:12px;
-    color:var(--gold2);
-    font-size:11px;
-    text-align:center;
-    transition:.25s;
-    padding:10px 5px;
-}
-
-.quick-card:hover {
-    background:#201b0c;
-    border-color:var(--gold);
-    transform:translateY(-3px);
-}
-
-.quick-card .quick-icon {
-    font-size:25px;
-}
-
-.quick-card:active {
-    transform:scale(.96);
-}
+/* RESPONSIVE */
 
 @media(max-width:380px) {
     .stats-grid {
-        gap:6px;
+        gap:7px;
     }
 
     .stat-card {
@@ -370,619 +389,1050 @@ button {
     .stat-card strong {
         font-size:19px;
     }
-
-    .quick-grid {
-        gap:7px;
-    }
 }
 </style>
 
-<main class="dashboard-container">
+<!-- WORKSPACE STATISTICS -->
 
-    <section class="hero-banner">
-        <div class="hero-content">
-            <div class="hero-label">PREMIUM DIGITAL EXPERIENCE</div>
-            <h1>Welcome Back!</h1>
-            <p>Your personal workspace.<br>
-            Everything you need, in one place.</p>
-        </div>
-        <div class="hero-symbol">HX</div>
-    </section>
+<h3 class="section-heading">
+    Workspace Overview
+    <span>YOUR STATISTICS</span>
+</h3>
 
-    <section class="profile-card">
-        <div class="profile-avatar" id="profileAvatar">H</div>
-        <div class="profile-info">
-            <h2 id="userName">HOWLADER X User</h2>
-            <p id="userEmail">Welcome to your dashboard</p>
-        </div>
-        <div class="owner-badge">MEMBER</div>
-    </section>
+<section class="stats-grid">
 
-    <h3 class="section-heading">
-        Workspace Overview
-        <span>YOUR STATISTICS</span>
-    </h3>
+    <div class="stat-card">
+        <div class="stat-icon">✓</div>
+        <strong id="taskCount">0</strong>
+        <p>Total Tasks</p>
+    </div>
 
-    <section class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-icon">✓</div>
-            <strong id="taskCount">0</strong>
-            <p>Total Tasks</p>
-        </div>
+    <div class="stat-card">
+        <div class="stat-icon">▤</div>
+        <strong id="noteCount">0</strong>
+        <p>Total Notes</p>
+    </div>
 
-        <div class="stat-card">
-            <div class="stat-icon">▤</div>
-            <strong id="noteCount">0</strong>
-            <p>Total Notes</p>
-        </div>
+    <div class="stat-card">
+        <div class="stat-icon">◇</div>
+        <strong id="projectCount">0</strong>
+        <p>Projects</p>
+    </div>
 
-        <div class="stat-card">
-            <div class="stat-icon">◇</div>
-            <strong id="projectCount">0</strong>
-            <p>Projects</p>
-        </div>
-    </section>
+</section>
 
-    <h3 class="section-heading">
-        Live Information
-        <span>SMART WIDGETS</span>
-    </h3>
+<!-- LIVE INFORMATION -->
 
-    <section class="info-grid">
-        <div class="info-card">
-            <div class="info-icon">◷</div>
-            <h3>Digital Clock</h3>
-            <p class="clock-time" id="liveClock">00:00:00</p>
-            <p id="liveDate">Loading date...</p>
-        </div>
+<h3 class="section-heading">
+    Live Information
+    <span>SMART WIDGETS</span>
+</h3>
 
-        <div class="info-card">
-            <div class="info-icon">☁</div>
-            <h3>Weather</h3>
-            <p id="weatherInfo">Weather information</p>
-            <button id="weatherButton" type="button"
-                style="margin-top:10px;padding:7px 10px;background:#D4AF37;color:#111;border:0;border-radius:6px;font-size:10px;">
-                Check Weather
-            </button>
-        </div>
-    </section>
+<section class="info-grid">
 
-    <h3 class="section-heading">
-        Quick Access
-        <span>FAST ACTIONS</span>
-    </h3>
+    <div class="info-card">
+        <div class="info-icon">◷</div>
 
-    <section class="quick-grid">
-        <a href="notes.html" class="quick-card">
-            <span class="quick-icon">▤</span>
-            <span>My Notes</span>
-        </a>
+        <h3>Digital Clock</h3>
 
-        <a href="todo.html" class="quick-card">
-            <span class="quick-icon">✓</span>
-            <span>My Tasks</span>
-        </a>
+        <p class="clock-time" id="liveClock">
+            00:00:00
+        </p>
 
-        <a href="projects.html" class="quick-card">
-            <span class="quick-icon">◇</span>
-            <span>Projects</span>
-        </a>
-    </section>
-</main>
+        <p id="liveDate">
+            Loading date...
+        </p>
+    </div>
 
+</section>
 <style>
-.application-grid {
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:10px;
+.weather-premium {
+    background: linear-gradient(145deg, #151515, #0d0d0d);
+    border: 1px solid rgba(212,175,55,.25);
+    border-radius: 18px;
+    padding: 20px;
+    margin: 22px 0;
 }
 
-.application-card {
-    min-height:105px;
-    padding:13px 6px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    text-align:center;
-    background:linear-gradient(145deg,#191919,#0e0e0e);
-    border:1px solid var(--border);
-    border-radius:12px;
-    transition:.25s;
+.weather-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-.application-card:hover {
-    border-color:var(--gold);
-    transform:translateY(-4px);
-    box-shadow:0 5px 18px rgba(212,175,55,.09);
+.weather-location {
+    color: #D4AF37;
+    font-size: 18px;
+    font-weight: 700;
 }
 
-.application-icon {
-    font-size:27px;
-    color:var(--gold2);
+.weather-updated {
+    color: #888;
+    font-size: 12px;
+    margin-top: 5px;
 }
 
-.application-card span:last-child {
-    color:#ddd;
-    font-size:11px;
+.weather-refresh {
+    background: #D4AF37;
+    color: #080808;
+    border: 0;
+    border-radius: 9px;
+    padding: 9px 13px;
+    font-weight: 700;
+    cursor: pointer;
 }
 
-.activity-list {
-    display:grid;
-    gap:9px;
+.weather-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 25px 0;
 }
 
-.activity-item {
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:13px;
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:10px;
+.weather-temperature {
+    font-size: 48px;
+    font-weight: 800;
+    color: #fff;
 }
 
-.activity-icon {
-    width:35px;
-    height:35px;
-    display:grid;
-    place-items:center;
-    flex-shrink:0;
-    border-radius:9px;
-    background:rgba(212,175,55,.12);
-    color:var(--gold2);
-    font-size:17px;
+.weather-condition {
+    color: #D4AF37;
+    margin-top: 5px;
 }
 
-.activity-text {
-    flex:1;
-    min-width:0;
+.weather-icon {
+    font-size: 55px;
 }
 
-.activity-text h4 {
-    color:#eee;
-    font-size:12px;
-    margin-bottom:5px;
+.weather-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
 }
 
-.activity-text p {
-    color:var(--muted);
-    font-size:10px;
+.weather-detail {
+    background: #1b1b1b;
+    border: 1px solid #292929;
+    border-radius: 12px;
+    padding: 13px;
 }
 
-.progress-overview {
-    padding:16px;
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:12px;
+.weather-detail span {
+    display: block;
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 7px;
 }
 
-.progress-overview-top {
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:12px;
-    color:var(--gold2);
-    font-size:12px;
+.weather-detail strong {
+    color: #fff;
+    font-size: 15px;
 }
 
-.overview-track {
-    width:100%;
-    height:8px;
-    background:#292929;
-    border-radius:10px;
-    overflow:hidden;
+.weather-section-title {
+    color: #D4AF37;
+    margin: 22px 0 12px;
+    font-size: 15px;
 }
 
-.overview-fill {
-    width:0%;
-    height:100%;
-    background:linear-gradient(90deg,var(--gold),var(--gold2));
-    border-radius:10px;
-    transition:width .5s ease;
+.weather-forecast {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(75px, 1fr));
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 5px;
 }
 
-.bottom-navigation {
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    min-height:65px;
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-    background:#101010;
-    border-top:1px solid var(--border);
-    z-index:30;
-    padding:8px 4px;
+.weather-day {
+    background: #1b1b1b;
+    border-radius: 10px;
+    padding: 12px 8px;
+    text-align: center;
+    min-width: 75px;
 }
 
-.bottom-navigation a {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:5px;
-    color:var(--muted);
-    font-size:10px;
+.weather-day span {
+    display: block;
+    color: #aaa;
+    font-size: 12px;
+    margin-bottom: 8px;
 }
 
-.bottom-navigation a span:first-child {
-    font-size:19px;
+.weather-day strong {
+    display: block;
+    color: #fff;
+    margin: 7px 0;
 }
 
-.bottom-navigation a.active {
-    color:var(--gold2);
+.weather-day small {
+    color: #D4AF37;
 }
 
-.logout-button {
-    width:100%;
-    margin-top:18px;
-    padding:12px;
-    border:1px solid rgba(255,100,100,.3);
-    border-radius:9px;
-    background:#1b1010;
-    color:#ff9999;
-    font-weight:bold;
+.weather-loading {
+    color: #aaa;
+    padding: 20px 0;
+    text-align: center;
 }
 
-.footer-note {
-    text-align:center;
-    color:#666;
-    font-size:10px;
-    padding:22px 5px 10px;
+.weather-error {
+    color: #ff7777;
+    font-size: 13px;
+    margin-top: 12px;
 }
 
-@media(max-width:350px) {
-    .application-grid {
-        grid-template-columns:repeat(2,minmax(0,1fr));
+@media(max-width:600px) {
+    .weather-details {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .hero-symbol {
-        font-size:52px;
-    }
-
-    .owner-badge {
-        font-size:8px;
-        padding:6px;
-    }
-}
-
-@media(prefers-reduced-motion:reduce) {
-    *,*::before,*::after {
-        animation:none!important;
-        transition:none!important;
+    .weather-temperature {
+        font-size: 40px;
     }
 }
 </style>
 
-<main class="dashboard-container">
+<section class="weather-premium">
+    <div class="weather-top">
+        <div>
+            <div class="weather-location">📍 Monpura, Bhola</div>
+            <div class="weather-updated" id="weatherUpdated">
+                Weather information
+            </div>
+        </div>
 
-    <h3 class="section-heading">
-        Applications
-        <span>YOUR DIGITAL TOOLS</span>
-    </h3>
+        <button class="weather-refresh" id="weatherButton">
+            ↻ Refresh
+        </button>
+    </div>
 
-    <section class="application-grid">
+    <div class="weather-loading" id="weatherInfo">
+        আবহাওয়ার তথ্য লোড হচ্ছে...
+    </div>
 
-        <a href="calculator.html" class="application-card">
-            <span class="application-icon">▦</span>
-            <span>Calculator</span>
-        </a>
+    <div id="weatherDisplay" hidden>
+        <div class="weather-main">
+            <div>
+                <div class="weather-temperature" id="weatherTemp">--°C</div>
+                <div class="weather-condition" id="weatherCondition">
+                    Loading...
+                </div>
+            </div>
 
-        <a href="stopwatch.html" class="application-card">
-            <span class="application-icon">◷</span>
-            <span>Stopwatch</span>
-        </a>
+            <div class="weather-icon" id="weatherIcon">🌤️</div>
+        </div>
 
-        <a href="music.html" class="application-card">
-            <span class="application-icon">♫</span>
-            <span>Music Player</span>
-        </a>
+        <div class="weather-details">
+            <div class="weather-detail">
+                <span>Feels Like</span>
+                <strong id="weatherFeels">--°C</strong>
+            </div>
 
-        <a href="chat.html" class="application-card">
-            <span class="application-icon">✧</span>
-            <span>AI Assistant</span>
-        </a>
+            <div class="weather-detail">
+                <span>Humidity</span>
+                <strong id="weatherHumidity">--%</strong>
+            </div>
 
-        <a href="calendar.html" class="application-card">
-            <span class="application-icon">▦</span>
-            <span>Calendar</span>
-        </a>
+            <div class="weather-detail">
+                <span>Wind Speed</span>
+                <strong id="weatherWind">-- km/h</strong>
+            </div>
 
-        <a href="notes.html" class="application-card">
-            <span class="application-icon">▤</span>
+            <div class="weather-detail">
+                <span>Rain Chance</span>
+                <strong id="weatherRain">--%</strong>
+            </div>
+
+            <div class="weather-detail">
+                <span>Sunrise</span>
+                <strong id="weatherSunrise">--</strong>
+            </div>
+
+            <div class="weather-detail">
+                <span>Sunset</span>
+                <strong id="weatherSunset">--</strong>
+            </div>
+        </div>
+
+        <h3 class="weather-section-title">7-Day Forecast</h3>
+        <div class="weather-forecast" id="weatherForecast"></div>
+    </div>
+
+    <div class="weather-error" id="weatherError"></div>
+</section>
+<style>
+.quick-grid,
+.apps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 15px 0 25px;
+}
+
+.quick-card,
+.app-card {
+    background: #151515;
+    border: 1px solid rgba(212,175,55,.2);
+    border-radius: 14px;
+    padding: 17px 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    transition: .25s;
+}
+
+.quick-card:hover,
+.app-card:hover {
+    border-color: #D4AF37;
+    transform: translateY(-3px);
+    background: #1d1a10;
+}
+
+.quick-card .app-icon,
+.app-card .app-icon {
+    font-size: 27px;
+    display: block;
+    margin-bottom: 9px;
+}
+
+.quick-card span:last-child,
+.app-card span:last-child {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.dashboard-section-title {
+    color: #D4AF37;
+    font-size: 18px;
+    margin: 25px 0 12px;
+}
+
+.progress-panel {
+    background: #151515;
+    border: 1px solid rgba(212,175,55,.2);
+    border-radius: 15px;
+    padding: 18px;
+    margin: 20px 0;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 13px;
+    color: #fff;
+}
+
+.progress-header strong {
+    color: #D4AF37;
+}
+
+.progress-track {
+    height: 10px;
+    background: #292929;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #a98520, #f2d36b);
+    border-radius: 20px;
+    transition: width .5s ease;
+}
+
+.progress-note {
+    color: #888;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+@media(max-width:600px) {
+    .quick-grid,
+    .apps-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 9px;
+    }
+
+    .quick-card,
+    .app-card {
+        padding: 14px 7px;
+    }
+}
+</style>
+
+<section>
+    <h2 class="dashboard-section-title">⚡ Quick Access</h2>
+
+    <div class="quick-grid">
+        <a class="quick-card" href="notes.html">
+            <span class="app-icon">📝</span>
             <span>Notes</span>
         </a>
 
-        <a href="todo.html" class="application-card">
-            <span class="application-icon">✓</span>
-            <span>To-Do List</span>
+        <a class="quick-card" href="todo.html">
+            <span class="app-icon">✅</span>
+            <span>To-Do</span>
         </a>
 
-        <a href="projects.html" class="application-card">
-            <span class="application-icon">◇</span>
-            <span>Project Studio</span>
+        <a class="quick-card" href="projects.html">
+            <span class="app-icon">📁</span>
+            <span>Projects</span>
         </a>
-
-        <a href="admin.html" class="application-card">
-            <span class="application-icon">⚙</span>
-            <span>Admin Panel</span>
-        </a>
-
-    </section>
-
-    <h3 class="section-heading">
-        Project Progress
-        <span>OVERVIEW</span>
-    </h3>
-
-    <section class="progress-overview">
-        <div class="progress-overview-top">
-            <span>Completed Tasks</span>
-            <strong id="taskProgressText">0%</strong>
-        </div>
-        <div class="overview-track">
-            <div class="overview-fill" id="taskProgressFill"></div>
-        </div>
-    </section>
-
-    <h3 class="section-heading">
-        Recent Activity
-        <span>WORKSPACE ACTIVITY</span>
-    </h3>
-
-    <section class="activity-list" id="activityList">
-        <div class="activity-item">
-            <div class="activity-icon">◇</div>
-            <div class="activity-text">
-                <h4>Welcome to HOWLADER X</h4>
-                <p>Your workspace is ready.</p>
-            </div>
-        </div>
-    </section>
-
-    <button class="logout-button" id="logoutButton" type="button">
-        Log Out
-    </button>
-
-    <div class="footer-note">
-        HOWLADER X · PREMIUM DIGITAL PLATFORM
     </div>
+</section>
+
+<section>
+    <h2 class="dashboard-section-title">🚀 Applications</h2>
+
+    <div class="apps-grid">
+        <a class="app-card" href="calculator.html">
+            <span class="app-icon">🧮</span>
+            <span>Calculator</span>
+        </a>
+
+        <a class="app-card" href="stopwatch.html">
+            <span class="app-icon">⏱️</span>
+            <span>Stopwatch</span>
+        </a>
+
+        <a class="app-card" href="music.html">
+            <span class="app-icon">🎵</span>
+            <span>Music</span>
+        </a>
+
+        <a class="app-card" href="chat.html">
+            <span class="app-icon">💬</span>
+            <span>Chat</span>
+        </a>
+
+        <a class="app-card" href="calendar.html">
+            <span class="app-icon">📅</span>
+            <span>Calendar</span>
+        </a>
+
+        <a class="app-card" href="notes.html">
+            <span class="app-icon">📒</span>
+            <span>Notes</span>
+        </a>
+
+        <a class="app-card" href="todo.html">
+            <span class="app-icon">☑️</span>
+            <span>To-Do</span>
+        </a>
+
+        <a class="app-card" href="projects.html">
+            <span class="app-icon">📂</span>
+            <span>Projects</span>
+        </a>
+
+        <a class="app-card" href="project-manager.html">
+            <span class="app-icon">📊</span>
+            <span>Project Manager</span>
+        </a>
+
+        <a class="app-card" href="admin.html">
+            <span class="app-icon">⚙️</span>
+            <span>Admin</span>
+        </a>
+    </div>
+</section>
+
+<section class="progress-panel">
+    <div class="progress-header">
+        <span>📈 Workspace Progress</span>
+        <strong id="progressPercent">0%</strong>
+    </div>
+
+    <div class="progress-track">
+        <div class="progress-fill" id="progressBar"></div>
+    </div>
+
+    <div class="progress-note">
+        Your workspace activity overview
+    </div>
+</section>
+<style>
+.activity-panel {
+    background: #151515;
+    border: 1px solid rgba(212,175,55,.2);
+    border-radius: 15px;
+    padding: 18px;
+    margin: 20px 0;
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #1c1c1c;
+    border-radius: 10px;
+}
+
+.activity-icon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    background: #29230f;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+.activity-text {
+    color: #fff;
+    font-size: 13px;
+}
+
+.activity-time {
+    color: #888;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+.empty-activity {
+    color: #888;
+    text-align: center;
+    padding: 18px 5px;
+    font-size: 13px;
+}
+
+.logout-button {
+    width: 100%;
+    padding: 14px;
+    margin: 20px 0;
+    background: #261414;
+    color: #ff7777;
+    border: 1px solid #713333;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background: #381818;
+}
+
+.bottom-navigation {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(12,12,12,.97);
+    border-top: 1px solid rgba(212,175,55,.25);
+    padding: 12px 5px calc(12px + env(safe-area-inset-bottom));
+    z-index: 1000;
+}
+
+.bottom-navigation a {
+    color: #999;
+    text-decoration: none;
+    text-align: center;
+    font-size: 11px;
+    min-width: 55px;
+}
+
+.bottom-navigation a span {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.bottom-navigation a.active {
+    color: #D4AF37;
+}
+
+body {
+    padding-bottom: 85px;
+}
+
+@media(min-width:700px) {
+    .bottom-navigation {
+        max-width: 520px;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 1px solid rgba(212,175,55,.25);
+        border-bottom: 0;
+        border-radius: 15px 15px 0 0;
+    }
+}
+</style>
+
+<section class="activity-panel">
+    <h2 class="dashboard-section-title">🕘 Recent Activity</h2>
+
+    <div class="activity-list" id="activityList">
+        <div class="empty-activity">
+            No recent activity yet.
+        </div>
+    </div>
+</section>
+
+<button class="logout-button" id="logoutButton">
+    ↪ Logout
+</button>
 
 </main>
 
 <nav class="bottom-navigation">
     <a href="index.html">
-        <span>⌂</span>
-        <span>Home</span>
+        <span>🏠</span>
+        Home
     </a>
+
     <a href="dashboard.html" class="active">
-        <span>▦</span>
-        <span>Dashboard</span>
+        <span>📊</span>
+        Dashboard
     </a>
+
     <a href="projects.html">
-        <span>◇</span>
-        <span>Projects</span>
+        <span>📁</span>
+        Projects
     </a>
+
     <a href="notes.html">
-        <span>▤</span>
-        <span>Notes</span>
+        <span>📝</span>
+        Notes
     </a>
 </nav>
-
 <script type="module">
 import { auth } from "./firebase.js";
+
 import {
     onAuthStateChanged,
     signOut
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-const $ = id => document.getElementById(id);
+const $ = (id) => document.getElementById(id);
+
+// ==============================
+// 1. FIREBASE AUTHENTICATION
+// ==============================
+
+onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    const nameElement = $("userName");
+    const emailElement = $("userEmail");
+    const avatarElement = $("profileAvatar");
+
+    if (nameElement) {
+        nameElement.textContent =
+            user.displayName || "HOWLADER User";
+    }
+
+    if (emailElement) {
+        emailElement.textContent =
+            user.email || "No email available";
+    }
+
+    if (avatarElement) {
+        const initials = (user.displayName || "H")
+            .trim()
+            .split(/\s+/)
+            .map(word => word[0])
+            .join("")
+            .slice(0, 2)
+            .toUpperCase();
+
+        avatarElement.textContent = initials;
+    }
+});
+
+// ==============================
+// 2. LOGOUT
+// ==============================
+
+$("logoutButton")?.addEventListener("click", async () => {
+    const button = $("logoutButton");
+
+    if (button) {
+        button.disabled = true;
+        button.textContent = "Logging out...";
+    }
+
+    try {
+        await signOut(auth);
+        window.location.href = "login.html";
+    } catch (error) {
+        console.error("Logout error:", error);
+        alert("Logout failed. Please try again.");
+
+        if (button) {
+            button.disabled = false;
+            button.textContent = "↪ Logout";
+        }
+    }
+});
+
+// ==============================
+// 3. LIVE CLOCK
+// ==============================
 
 function updateClock() {
     const now = new Date();
 
-    $("liveClock").textContent =
-        now.toLocaleTimeString("en-US", {
-            hour12: true,
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit"
-        });
+    if ($("liveClock")) {
+        $("liveClock").textContent =
+            new Intl.DateTimeFormat("en-BD", {
+                timeZone: "Asia/Dhaka",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: true
+            }).format(now);
+    }
 
-    $("liveDate").textContent =
-        now.toLocaleDateString("en-US", {
-            weekday: "long",
-            year: "numeric",
-            month: "short",
-            day: "numeric"
-        });
+    if ($("liveDate")) {
+        $("liveDate").textContent =
+            new Intl.DateTimeFormat("en-BD", {
+                timeZone: "Asia/Dhaka",
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }).format(now);
+    }
 }
 
 updateClock();
 setInterval(updateClock, 1000);
 
+// ==============================
+// 4. LOCAL STORAGE DATA
+// ==============================
+
 function readStorage(key) {
     try {
-        const value = JSON.parse(localStorage.getItem(key) || "[]");
-        return Array.isArray(value) ? value : [];
-    } catch {
+        const data = JSON.parse(
+            localStorage.getItem(key) || "[]"
+        );
+
+        return Array.isArray(data) ? data : [];
+    } catch (error) {
+        console.warn("Storage read error:", key, error);
         return [];
     }
 }
 
 function updateStatistics() {
-    const tasks = readStorage("howladerTasksV1");
-    const notes = readStorage("howladerNotesV1");
-    const projects = readStorage("howladerCustomProjectsV1");
+    const tasks = readStorage("tasks");
+    const notes = readStorage("notes");
+    const projects = readStorage("projects");
 
-    $("taskCount").textContent = tasks.length;
-    $("noteCount").textContent = notes.length;
-    $("projectCount").textContent = projects.length;
-
-    const completed = tasks.filter(task =>
-        task &&
-        (task.completed === true ||
-         task.status === "Completed" ||
-         task.done === true)
+    const completedTasks = tasks.filter(task =>
+        task.completed === true ||
+        task.done === true ||
+        task.status === "completed"
     ).length;
 
-    const percentage = tasks.length
-        ? Math.round((completed / tasks.length) * 100)
+    if ($("taskCount")) {
+        $("taskCount").textContent = tasks.length;
+    }
+
+    if ($("noteCount")) {
+        $("noteCount").textContent = notes.length;
+    }
+
+    if ($("projectCount")) {
+        $("projectCount").textContent = projects.length;
+    }
+
+    const progress = tasks.length
+        ? Math.round((completedTasks / tasks.length) * 100)
         : 0;
 
-    $("taskProgressText").textContent = percentage + "%";
-    $("taskProgressFill").style.width = percentage + "%";
+    if ($("progressPercent")) {
+        $("progressPercent").textContent = progress + "%";
+    }
 
-    renderActivity(notes, tasks, projects);
+    if ($("progressBar")) {
+        $("progressBar").style.width = progress + "%";
+    }
 }
 
-function renderActivity(notes, tasks, projects) {
-    const list = $("activityList");
-    list.replaceChildren();
+updateStatistics();
 
-    const activities = [
-        {
-            icon: "✓",
-            title: "Tasks",
-            detail: tasks.length + " tasks in your workspace."
-        },
-        {
-            icon: "▤",
-            title: "Notes",
-            detail: notes.length + " notes saved."
-        },
-        {
-            icon: "◇",
-            title: "Projects",
-            detail: projects.length + " projects available."
-        }
-    ];
+// ==============================
+// 5. RECENT ACTIVITY
+// ==============================
 
-    activities.forEach(activity => {
+function updateActivity() {
+    const container = $("activityList");
+
+    if (!container) return;
+
+    const activities = readStorage("activities");
+
+    container.replaceChildren();
+
+    if (activities.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "empty-activity";
+        empty.textContent = "No recent activity yet.";
+
+        container.appendChild(empty);
+        return;
+    }
+
+    activities.slice(-5).reverse().forEach(activity => {
         const item = document.createElement("div");
         item.className = "activity-item";
 
         const icon = document.createElement("div");
         icon.className = "activity-icon";
-        icon.textContent = activity.icon;
+        icon.textContent = activity.icon || "📌";
 
         const content = document.createElement("div");
-        content.className = "activity-text";
 
-        const title = document.createElement("h4");
-        title.textContent = activity.title;
+        const title = document.createElement("div");
+        title.className = "activity-text";
+        title.textContent =
+            activity.title ||
+            activity.action ||
+            activity.description ||
+            "Activity";
 
-        const detail = document.createElement("p");
-        detail.textContent = activity.detail;
+        const time = document.createElement("div");
+        time.className = "activity-time";
+        time.textContent =
+            activity.time ||
+            activity.date ||
+            "Recently";
 
-        content.append(title, detail);
+        content.append(title, time);
         item.append(icon, content);
-        list.appendChild(item);
+        container.appendChild(item);
     });
 }
 
-onAuthStateChanged(auth, user => {
-    if (!user) {
-        location.replace("login.html");
-        return;
+updateActivity();
+
+// ==============================
+// 6. WEATHER INFORMATION
+// ==============================
+
+const weatherURL =
+    "https://api.open-meteo.com/v1/forecast" +
+    "?latitude=22.30" +
+    "&longitude=90.97" +
+    "&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m" +
+    "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset" +
+    "&timezone=Asia%2FDhaka" +
+    "&forecast_days=7";
+
+function weatherDescription(code) {
+    if (code === 0) return ["Clear Sky", "☀️"];
+    if (code <= 2) return ["Partly Cloudy", "🌤️"];
+    if (code === 3) return ["Cloudy", "☁️"];
+    if (code <= 48) return ["Foggy", "🌫️"];
+    if (code <= 57) return ["Drizzle", "🌦️"];
+    if (code <= 67) return ["Rain", "🌧️"];
+    if (code <= 77) return ["Snow", "❄️"];
+    if (code <= 82) return ["Rain Showers", "🌦️"];
+    if (code <= 86) return ["Snow Showers", "🌨️"];
+    if (code >= 95) return ["Thunderstorm", "⛈️"];
+
+    return ["Unknown", "🌡️"];
+}
+
+function formatTime(value) {
+    if (!value) return "--";
+
+    const date = new Date(value);
+
+    return date.toLocaleTimeString("en-BD", {
+        timeZone: "Asia/Dhaka",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true
+    });
+}
+
+async function loadWeather() {
+    const info = $("weatherInfo");
+    const display = $("weatherDisplay");
+    const errorBox = $("weatherError");
+    const button = $("weatherButton");
+
+    if (info) info.hidden = false;
+    if (info) info.textContent = "Loading weather information...";
+
+    if (display) display.hidden = true;
+    if (errorBox) errorBox.textContent = "";
+
+    if (button) {
+        button.disabled = true;
+        button.textContent = "Loading...";
     }
-
-    const name = user.displayName || "HOWLADER X User";
-    const email = user.email || "Account active";
-
-    $("userName").textContent = name;
-    $("userEmail").textContent = email;
-    $("profileAvatar").textContent =
-        name.trim().charAt(0).toUpperCase() || "H";
-
-    updateStatistics();
-});
-
-$("logoutButton").addEventListener("click", async () => {
-    const confirmed = confirm("Are you sure you want to log out?");
-    if (!confirmed) return;
 
     try {
-        await signOut(auth);
-        location.replace("login.html");
-    } catch (error) {
-        alert("Logout failed. Please try again.");
-        console.error(error);
-    }
-});
+        const response = await fetch(weatherURL);
 
-window.addEventListener("pageshow", updateStatistics);
+        if (!response.ok) {
+            throw new Error("Weather service unavailable");
+        }
 
-$("weatherButton").addEventListener("click", () => {
-    const output = $("weatherInfo");
+        const data = await response.json();
 
-    if (!navigator.geolocation) {
-        output.textContent = "Location is not supported by this browser.";
-        return;
-    }
+        const current = data.current;
+        const daily = data.daily;
 
-    output.textContent = "Getting your weather...";
+        const [condition, icon] =
+            weatherDescription(current.weather_code);
 
-    navigator.geolocation.getCurrentPosition(
-        async position => {
-            try {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
+        if ($("weatherTemp")) {
+            $("weatherTemp").textContent =
+                Math.round(current.temperature_2m) + "°C";
+        }
 
-                const response = await fetch(
-                    "https://api.open-meteo.com/v1/forecast?latitude=" +
-                    lat + "&longitude=" + lon +
-                    "&current=temperature_2m,relative_humidity_2m,weather_code"
+        if ($("weatherCondition")) {
+            $("weatherCondition").textContent = condition;
+        }
+
+        if ($("weatherIcon")) {
+            $("weatherIcon").textContent = icon;
+        }
+
+        if ($("weatherFeels")) {
+            $("weatherFeels").textContent =
+                Math.round(current.apparent_temperature) + "°C";
+        }
+
+        if ($("weatherHumidity")) {
+            $("weatherHumidity").textContent =
+                current.relative_humidity_2m + "%";
+        }
+
+        if ($("weatherWind")) {
+            $("weatherWind").textContent =
+                current.wind_speed_10m + " km/h";
+        }
+
+        if ($("weatherRain")) {
+            $("weatherRain").textContent =
+                (daily.precipitation_probability_max?.[0] ?? 0) + "%";
+        }
+
+        if ($("weatherSunrise")) {
+            $("weatherSunrise").textContent =
+                formatTime(daily.sunrise?.[0]);
+        }
+
+        if ($("weatherSunset")) {
+            $("weatherSunset").textContent =
+                formatTime(daily.sunset?.[0]);
+        }
+
+        if ($("weatherUpdated")) {
+            $("weatherUpdated").textContent =
+                "Updated: " + new Date().toLocaleTimeString("en-BD");
+        }
+
+        // Seven-day forecast
+        const forecast = $("weatherForecast");
+
+        if (forecast) {
+            forecast.replaceChildren();
+
+            daily.time.forEach((date, index) => {
+                const [description, dayIcon] =
+                    weatherDescription(daily.weather_code[index]);
+
+                const day = document.createElement("div");
+                day.className = "weather-day";
+
+                const dayName = document.createElement("span");
+                dayName.textContent = index === 0
+                    ? "Today"
+                    : new Date(date + "T12:00:00")
+                        .toLocaleDateString("en-BD", {
+                            weekday: "short"
+                        });
+
+                const iconElement = document.createElement("strong");
+                iconElement.textContent = dayIcon;
+
+                const temperature = document.createElement("strong");
+                temperature.textContent =
+                    Math.round(daily.temperature_2m_max[index]) +
+                    "° / " +
+                    Math.round(daily.temperature_2m_min[index]) +
+                    "°";
+
+                const rain = document.createElement("small");
+                rain.textContent =
+                    "Rain " +
+                    (daily.precipitation_probability_max[index] ?? 0) +
+                    "%";
+
+                day.append(
+                    dayName,
+                    iconElement,
+                    temperature,
+                    rain
                 );
 
-                if (!response.ok) {
-                    throw new Error("Weather request failed");
-                }
-
-                const data = await response.json();
-                const current = data.current;
-
-                const temperature = current.temperature_2m;
-                const humidity = current.relative_humidity_2m;
-                const code = current.weather_code;
-
-                let condition = "Current weather";
-
-                if (code === 0) condition = "Clear sky";
-                else if ([1, 2, 3].includes(code)) condition = "Cloudy";
-                else if ([45, 48].includes(code)) condition = "Foggy";
-                else if (code >= 51 && code <= 67) condition = "Rain";
-                else if (code >= 71 && code <= 77) condition = "Snow";
-                else if (code >= 80 && code <= 82) condition = "Rain showers";
-                else if (code >= 95) condition = "Thunderstorm";
-
-                output.textContent =
-                    condition + " · " + temperature +
-                    "°C · Humidity " + humidity + "%";
-
-            } catch (error) {
-                output.textContent = "Unable to load weather right now.";
-                console.error(error);
-            }
-        },
-        error => {
-            output.textContent =
-                error.code === 1
-                    ? "Please allow location permission."
-                    : "Location unavailable. Try again.";
-        },
-        {
-            enableHighAccuracy: false,
-            timeout: 12000,
-            maximumAge: 300000
+                forecast.appendChild(day);
+            });
         }
-    );
+
+        if (info) info.hidden = true;
+        if (display) display.hidden = false;
+
+    } catch (error) {
+        console.error("Weather error:", error);
+
+        if (info) info.textContent =
+            "Weather information could not be loaded.";
+
+        if (errorBox) {
+            errorBox.textContent =
+                "Please check your internet connection and try again.";
+        }
+
+    } finally {
+        if (button) {
+            button.disabled = false;
+            button.textContent = "↻ Refresh";
+        }
+    }
+}
+
+loadWeather();
+
+$("weatherButton")?.addEventListener("click", loadWeather);
+
+// ==============================
+// 7. DASHBOARD REFRESH
+// ==============================
+
+$("refreshButton")?.addEventListener("click", () => {
+    updateStatistics();
+    updateActivity();
+    updateClock();
+    loadWeather();
 });
 
+console.log("HOWLADER X Dashboard Loaded Successfully");
 </script>
+
 </body>
 </html>
-
-  
