@@ -1,212 +1,1164 @@
-<Skip to main content
-Firebase logo
-Search for products
-Project Overview
-Settings
-Project shortcuts
-Authentication
-
-
-Product categories
-Databases and storage
-Security
-AI services
-Hosting and serverless
-DevOps and engagement
-Analytics
-Billing plan:Spark
-No cost ($0/month)
-Junayed app
-Authentication
-Users
-Sign-in method
-Templates
-Usage
-Settings
-Settings
-User account management
-User account linking
-User actions
-Blocking functions
-User activity logging
-Sign-up quota
-Password policy
-Domains
-Authorised domains
-SMS
-SMS region policy
-Fraud prevention
-Fraud Defense 
-New name
-Authorised domains
-For security, to use phone, Google or third-party authentication, domains need to be authorised for OAuth redirects. Learn more
-
-Authorised domain	Type	Actions
-localhost	Default	
-junayed-app.firebaseapp.com	Default	
-junayed-app.web.app	Default	
-j68001529-ux.github.io	Custom	
-Supercharge your development! Try Cloud Shell to access the built-in Firebase CLI and run Firebase emulators directly in a virtual machine.
-Upgrade to Firebase Auth with Identity platform to access this feature. Learn more
-Upgrade to Firebase Auth with Identity platform to access this feature. Learn more
-We've updated the name to reflect new capabilities. Your existing integrations, keys and configurations continue to work exactly as before, with no action required on your part.
-Click upgrade to learn how to claim a $300 credit free of charge.
-DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#090909">
-    <title>JUNAYED APP</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>HOWLADER X — Premium Digital Platform</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#080808;
+  --panel:#111;
+  --panel2:#191919;
+  --gold:#D4AF37;
+  --gold-light:#F5D778;
+  --text:#F5F5F5;
+  --muted:#999;
+  --border:rgba(212,175,55,.17);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+  padding-bottom:75px;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button,input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+/* Loader */
+
+.app-loader{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:12px;
+  background:#080808;
+  transition:.4s;
+}
+
+.app-loader.hidden{
+  opacity:0;
+  visibility:hidden;
+}
+
+.loader-logo{
+  font-size:23px;
+  font-weight:800;
+  letter-spacing:3px;
+  color:var(--gold-light);
+  animation:goldPulse 2s infinite;
+}
+
+.loader-line{
+  width:100px;
+  height:2px;
+  overflow:hidden;
+  background:#292929;
+}
+
+.loader-line span{
+  display:block;
+  width:45%;
+  height:100%;
+  background:var(--gold);
+  animation:loading 1s infinite;
+}
+
+@keyframes loading{
+  from{transform:translateX(-100%)}
+  to{transform:translateX(230%)}
+}
+
+/* Animations */
+
+@keyframes goldPulse{
+  0%,100%{text-shadow:0 0 3px rgba(212,175,55,.2)}
+  50%{text-shadow:0 0 15px rgba(212,175,55,.7)}
+}
+
+@keyframes shimmer{
+  0%{background-position:-200% center}
+  100%{background-position:200% center}
+}
+
+@keyframes slideReveal{
+  from{
+    opacity:0;
+    transform:translateY(18px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes goldBorder{
+  0%,100%{border-color:rgba(212,175,55,.15)}
+  50%{border-color:rgba(212,175,55,.65)}
+}
+
+/* Header */
+
+.top-header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:11px 4%;
+  background:rgba(8,8,8,.94);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(14px);
+}
+
+.brand{
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:1.7px;
+  background:linear-gradient(
+    90deg,
+    #D4AF37,
+    #fff1ad,
+    #D4AF37
+  );
+  background-size:200% auto;
+  color:var(--gold-light);
+  background-clip:text;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:shimmer 4s linear infinite;
+}
+
+.header-actions{
+  display:flex;
+  gap:8px;
+}
+
+.icon-btn{
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:var(--panel);
+  color:var(--gold-light);
+  font-size:15px;
+}
+
+/* Main Container */
+
+.container{
+  width:min(1050px,94%);
+  margin:auto;
+}
+
+.hero{
+  padding:24px 0 15px;
+  animation:slideReveal .7s ease both;
+}
+
+.hero-card{
+  position:relative;
+  overflow:hidden;
+  padding:23px;
+  border:1px solid var(--border);
+  border-radius:17px;
+  background:
+    radial-gradient(circle at 90% 10%,rgba(212,175,55,.13),transparent 40%),
+    linear-gradient(135deg,#171717,#090909);
+}
+
+.hero-label{
+  display:inline-block;
+  margin-bottom:11px;
+  padding:5px 9px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  color:var(--gold-light);
+  font-size:9px;
+  letter-spacing:1px;
+}
+
+.hero h1{
+  margin-bottom:9px;
+  font-size:clamp(24px,5vw,36px);
+  line-height:1.2;
+}
+
+.hero h1 span{
+  color:var(--gold-light);
+}
+
+.hero p{
+  max-width:560px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+}
+
+.hero-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:17px;
+}
+
+.primary-btn,.secondary-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:9px 13px;
+  border-radius:9px;
+  font-size:11px;
+  font-weight:700;
+  transition:transform .25s,box-shadow .25s;
+}
+
+.primary-btn{
+  background:linear-gradient(120deg,var(--gold-light),var(--gold));
+  color:#111;
+  border:0;
+  animation:goldBorder 3s infinite;
+}
+
+.secondary-btn{
+  background:#171717;
+  color:var(--gold-light);
+  border:1px solid var(--border);
+}
+
+.primary-btn:hover,.secondary-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 5px 18px rgba(212,175,55,.18);
+}
+
+/* Sections */
+
+.section{
+  padding:15px 0;
+  animation:slideReveal .65s ease both;
+}
+
+.section-heading{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:13px;
+}
+
+.section-heading h2{
+  font-size:16px;
+  font-weight:800;
+}
+
+.section-heading p{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.section-heading a{
+  color:var(--gold-light);
+  font-size:10px;
+}
+
+/* Statistics */
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:9px;
+}
+
+.stat-card{
+  padding:13px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+
+.stat-icon{
+  margin-bottom:8px;
+  color:var(--gold);
+  font-size:18px;
+}
+
+.stat-card h3{
+  margin-bottom:4px;
+  font-size:18px;
+}
+
+.stat-card p{
+  color:var(--muted);
+  font-size:9px;
+}
+
+/* Application Cards */
+
+.app-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+
+.app-card{
+  display:block;
+  min-width:0;
+  padding:14px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:13px;
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    background .25s ease;
+  transform-style:preserve-3d;
+}
+
+.app-card:hover{
+  transform:translateY(-4px) perspective(600px) rotateX(2deg);
+  border-color:var(--gold);
+  background:#19170f;
+}
+
+.app-icon{
+  width:36px;
+  height:36px;
+  display:grid;
+  place-items:center;
+  margin-bottom:10px;
+  border-radius:10px;
+  background:rgba(212,175,55,.1);
+  color:var(--gold-light);
+  font-size:18px;
+}
+
+.app-card h3{
+  margin-bottom:5px;
+  font-size:11px;
+}
+
+.app-card p{
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.5;
+}
+
+/* Search */
+
+.search-box{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:12px;
+  padding:10px 12px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:10px;
+}
+
+.search-box input{
+  width:100%;
+  color:var(--text);
+  background:transparent;
+  border:0;
+  outline:none;
+  font-size:11px;
+}
+
+/* Quick Tools */
+
+.quick-tools{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+}
+
+.quick-card{
+  min-width:0;
+  padding:14px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:13px;
+}
+
+.quick-card h3{
+  margin-bottom:8px;
+  font-size:12px;
+}
+
+.quick-card p{
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.6;
+}
+
+.weather-card p{
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.6;
+}
+</style>
 </head>
 <body>
 
-    <!-- Loading Screen -->
-    <div id="loader">
-        <div class="loader-logo">J</div>
-        <h1>JUNAYED APP</h1>
-        <p>Loading Your Experience...</p>
-        <div class="loading-bar"></div>
+<div class="app-loader" id="appLoader">
+  <div class="loader-logo">HOWLADER X</div>
+  <div class="loader-line"><span></span></div>
+  <p style="color:#999;font-size:10px;">Loading workspace...</p>
+</div>
+
+<header class="top-header">
+  <a href="index.html" class="brand">HOWLADER X</a>
+
+  <div class="header-actions">
+    <button class="icon-btn" id="themeToggle" title="Toggle Theme">☼</button>
+    <a href="dashboard.html" class="icon-btn" title="Account">♙</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <div class="hero-card">
+      <span class="hero-label">PREMIUM DIGITAL PLATFORM</span>
+
+      <h1>Welcome to <span>HOWLADER X</span></h1>
+
+      <p>
+        Your personal digital workspace for productivity,
+        creativity, learning and smart tools.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="chat.html" class="primary-btn">✦ AI Assistant</a>
+        <a href="dashboard.html" class="secondary-btn">Dashboard →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <h2>Overview</h2>
+        <p>Your workspace at a glance</p>
+      </div>
     </div>
 
-    <!-- Header -->
-    <header class="top-header">
-        <div class="header-brand">
-            <div class="app-logo">J</div>
-            <span>JUNAYED APP</span>
-        </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">✦</div>
+        <h3>AI</h3>
+        <p>Assistant</p>
+      </div>
 
-        <div class="header-actions">
-            <button onclick="toggleTheme()" aria-label="Change theme">🌙</button>
-            <button id="bellButton" onclick="showNotification()" aria-label="Notifications">
-                🔔
-                <span id="notificationCount">1</span>
-            </button>
-        </div>
-    </header>
-<div style="text-align:center; padding:15px;">
-    <a href="login.html" style="color:#a78bfa;">Login</a>
-    |
-    <a href="signup.html" style="color:#a78bfa;">Create Account</a>
-</div>
-    <div id="notification"></div>
+      <div class="stat-card">
+        <div class="stat-icon">✓</div>
+        <h3 id="taskCount">0</h3>
+        <p>Saved Tasks</p>
+      </div>
 
-    <main>
+      <div class="stat-card">
+        <div class="stat-icon">▤</div>
+        <h3 id="noteCount">0</h3>
+        <p>Saved Notes</p>
+      </div>
 
-        <!-- Quick Tools: Top Position -->
-        <section class="tools-section">
-            <div class="tools-heading">
-                <span class="tools-icon">⚡</span>
-                <div>
-                    <h2>Quick Tools</h2>
-                    <p>Quick actions for you</p>
-                </div>
-            </div>
+      <div class="stat-card">
+        <div class="stat-icon">▦</div>
+        <h3>Ready</h3>
+        <p>Workspace</p>
+      </div>
+    </div>
+  </section>
 
-            <p id="message">My Demo App</p>
+  <section class="section" id="applications">
+    <div class="section-heading">
+      <div>
+        <h2>Applications</h2>
+        <p>Explore your digital tools</p>
+      </div>
+      <a href="#applications">Explore All →</a>
+    </div>
 
-            <div class="tool-buttons">
-                <button onclick="changeText()">✏️ Text</button>
-                <button onclick="changeColor()">🎨 Color</button>
-                <button onclick="resetColor()">↺ Reset</button>
-            </div>
-        </section>
+    <div class="search-box">
+      <span>⌕</span>
+      <input type="search" id="appSearch"
+        placeholder="Search applications...">
+    </div>
 
-        <!-- Welcome -->
-        <section class="welcome-section">
-            <span class="owner-badge">✨ YOUR DIGITAL WORLD</span>
-            <h1>Welcome to<br>JUNAYED APP</h1>
-            <p>Your Smart App Experience</p>
-            <div class="welcome-line"></div>
-        </section>
+    <div class="app-grid" id="appGrid">
 
-        <!-- Profile -->
-        <section class="profile-section">
-            <div class="profile-avatar">H</div>
-            <h2>HOWLADER</h2>
-            <p>App Owner</p>
-            <span class="owner-badge">👑 OFFICIAL OWNER</span>
-        </section>
-
-        <!-- Clock -->
-        <section class="clock-section">
-            <div class="clock-label">LOCAL TIME</div>
-            <div id="clock">00:00:00</div>
-            <div id="calendar">Today's Date</div>
-        </section>
-
-        <!-- Image Card -->
-        <section class="image-card">
-            <div>
-                <h2>MY APP</h2>
-                <p>Welcome to my world</p>
-            </div>
-        </section>
-
-        <section class="picture-section">
-            <img id="myImage" width="250" alt="My Picture">
-            <button onclick="showImage()">🖼️ Show Image</button>
-        </section>
-
-        <!-- Weather -->
-        <section class="weather-card">
-            <h2>🌦️ Local Weather</h2>
-            <p id="weatherLocation">তোমার অবস্থান অপেক্ষায়...</p>
-            <h1 id="temperature">--°C</h1>
-            <p id="weatherStatus">আবহাওয়ার তথ্য পাওয়া যায়নি</p>
-            <button onclick="getWeather()">📍 আবহাওয়া দেখুন</button>
-        </section>
-
-        <!-- Applications -->
       <a href="chat.html" class="app-card">
-    <span>🤖</span>
-    <h3>JUNAYED AI</h3>
-    <p>Chat with AI Assistant</p>
+        <div class="app-icon">✦</div>
+        <h3>AI Assistant</h3>
+        <p>Your personal assistant.</p>
       </a>
-        <section class="dashboard-section">
-            <span class="owner-badge">YOUR COLLECTION</span>
-            <h2>My Applications</h2>
-            <p>Choose your favourite application</p>
 
-            <div class="app-dashboard">
+      <a href="notes.html" class="app-card">
+        <div class="app-icon">▤</div>
+        <h3>Smart Notes</h3>
+        <p>Create and manage notes.</p>
+      </a>
 
-                <a href="todo.html" class="app-card">
-                    <span>📋</span>
-                    <h3>To-Do List</h3>
-                    <p>Manage your tasks</p>
-                </a>
+      <a href="todo.html" class="app-card">
+        <div class="app-icon">✓</div>
+        <h3>Task Manager</h3>
+        <p>Organize daily tasks.</p>
+      </a>
 
-                <a href="calculator.html" class="app-card">
-                    <span>🧮</span>
-                    <h3>Calculator</h3>
-                    <p>Quick calculations</p>
-                </a>
+      <a href="calendar.html" class="app-card">
+        <div class="app-icon">▦</div>
+        <h3>Calendar</h3>
+        <p>Manage your schedule.</p>
+      </a>
 
-                <a href="stopwatch.html" class="app-card">
-                    <span>⏱️</span>
-                    <h3>Stopwatch</h3>
-                    <p>Track your time</p>
-                </a>
+      <a href="calculator.html" class="app-card">
+        <div class="app-icon">＋</div>
+        <h3>Calculator</h3>
+        <p>Scientific calculations.</p>
+      </a>
 
-                <a href="music.html" class="app-card">
-                    <span>🎵</span>
-                    <h3>Music Player</h3>
-                    <p>Listen to your music</p>
-                </a>
+      <a href="stopwatch.html" class="app-card">
+        <div class="app-icon">◷</div>
+        <h3>Stopwatch</h3>
+        <p>Track time precisely.</p>
+      </a>
 
-            </div>
-        </section>
-    </main>
+      <a href="music.html" class="app-card">
+        <div class="app-icon">♫</div>
+        <h3>Music Player</h3>
+        <p>Play local audio files.</p>
+      </a>
 
-    <!-- Footer -->
-    <footer class="app-footer">
-        <div class="app-logo">J</div>
-        <h3>JUNAYED APP</h3>
-        <p>Made with ❤️ by Howlader</p>
-        <small>© 2026 JUNAYED APP. All Rights Reserved.</small>
-    </footer>
+      <a href="dashboard.html" class="app-card">
+        <div class="app-icon">▣</div>
+        <h3>Dashboard</h3>
+        <p>Your personal workspace.</p>
+      </a>
 
-    <script src="script.js"></script>
+      <a href="admin.html" class="app-card">
+        <div class="app-icon">⚙</div>
+        <h3>Admin Panel</h3>
+        <p>Demo control center.</p>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <h2>Quick Tools</h2>
+        <p>Useful everyday tools</p>
+      </div>
+    </div>
+
+    <div class="quick-tools">
+
+      <div class="quick-card">
+        <h3>Digital Clock</h3>
+        <p id="clock">00:00:00</p>
+        <p id="date">Loading date...</p>
+      </div>
+
+      <div class="quick-card">
+        <h3>Quick Calculator</h3>
+
+        <input id="quickCalcInput"
+          placeholder="Enter calculation..."
+          style="width:100%;padding:8px;margin:6px 0;background:#080808;color:white;border:1px solid #444;border-radius:7px;font-size:11px;">
+
+        <button class="primary-btn" id="quickCalcBtn">
+          Calculate
+        </button>
+
+        <p id="quickCalcResult">Result appears here.</p>
+      </div>
+
+      <div class="quick-card">
+        <h3>Weather</h3>
+        <p id="weatherStatus">Weather not loaded.</p>
+        <button class="secondary-btn" id="weatherBtn">
+          Check Weather
+        </button>
+      </div>
+
+    </div>
+  </section>
+  
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <h2>Media Preview</h2>
+        <p>Preview an image from your device</p>
+      </div>
+    </div>
+
+    <div class="quick-card">
+      <input type="file" id="imageInput" accept="image/*"
+        style="width:100%;color:#aaa;margin-bottom:10px;font-size:11px;">
+
+      <img id="imagePreview" alt="Image Preview"
+        style="display:none;width:100%;max-height:220px;object-fit:contain;border-radius:10px;">
+
+      <p id="imageStatus">Choose an image to preview.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="hero-card">
+      <h2 style="color:var(--gold-light);font-size:17px;margin-bottom:8px;">
+        Build Your Next Idea
+      </h2>
+
+      <p>
+        Organize your work, explore projects and make
+        your ideas happen.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="projects.html" class="primary-btn">
+          ▦ Open Projects
+        </a>
+
+        <a href="todo.html" class="secondary-btn">
+          View Tasks
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer style="padding:22px 5% 95px;text-align:center;border-top:1px solid var(--border);margin-top:20px;">
+  <h3 class="brand" style="margin-bottom:7px;">HOWLADER X</h3>
+
+  <p style="color:var(--muted);font-size:10px;">
+    Premium Digital Platform
+  </p>
+
+  <p style="color:#666;font-size:9px;margin-top:9px;">
+    © 2026 HOWLADER X. All rights reserved.
+  </p>
+</footer>
+
+<nav class="bottom-nav">
+
+  <a href="index.html" class="active">
+    <span>⌂</span>
+    Home
+  </a>
+
+  <a href="todo.html">
+    <span>✓</span>
+    Tasks
+  </a>
+
+  <a href="#applications">
+    <span>⚒</span>
+    Tools
+  </a>
+
+  <a href="music.html">
+    <span>♫</span>
+    Music
+  </a>
+
+  <a href="dashboard.html">
+    <span>♙</span>
+    Account
+  </a>
+
+  <a href="projects.html" class="projects-nav">
+    <span>▦</span>
+    Projects
+  </a>
+
+</nav>
+
+<style>
+.bottom-nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:500;
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+  gap:2px;
+  padding:7px 3px calc(7px + env(safe-area-inset-bottom));
+  background:rgba(9,9,9,.97);
+  border-top:1px solid var(--border);
+  backdrop-filter:blur(14px);
+}
+
+.bottom-nav a{
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  padding:6px 1px;
+  border-radius:9px;
+  color:#888;
+  font-size:9px;
+  font-weight:600;
+  white-space:nowrap;
+  transition:.2s;
+}
+
+.bottom-nav a span{
+  font-size:17px;
+  line-height:1;
+}
+
+.bottom-nav a.active{
+  color:var(--gold-light);
+}
+
+.bottom-nav a.projects-nav{
+  color:#080808;
+  background:linear-gradient(120deg,var(--gold-light),var(--gold));
+  box-shadow:0 0 12px rgba(212,175,55,.18);
+  animation:goldPulse 3s infinite;
+}
+
+.bottom-nav a:not(.projects-nav):hover{
+  color:var(--gold-light);
+}
+
+@media(max-width:360px){
+  .bottom-nav a{
+    font-size:8px;
+  }
+
+  .bottom-nav a span{
+    font-size:15px;
+  }
+}
+
+/* Reduced motion accessibility */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    scroll-behavior:auto !important;
+    transition-duration:.01ms !important;
+  }
+}
+</style>
+<script>
+/* ===============================
+   HOWLADER X - MAIN SCRIPT
+================================ */
+
+/* Hide Loader */
+window.addEventListener("load", () => {
+  const loader = document.getElementById("appLoader");
+
+  if (loader) {
+    setTimeout(() => {
+      loader.classList.add("hidden");
+    }, 450);
+  }
+});
+
+
+/* Digital Clock */
+function updateClock() {
+  const clock = document.getElementById("clock");
+  const date = document.getElementById("date");
+
+  const now = new Date();
+
+  if (clock) {
+    clock.textContent = now.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+  }
+
+  if (date) {
+    date.textContent = now.toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    });
+  }
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+
+
+/* Application Search */
+const appSearch = document.getElementById("appSearch");
+const appCards = document.querySelectorAll(".app-card");
+
+if (appSearch) {
+  appSearch.addEventListener("input", () => {
+    const query = appSearch.value.toLowerCase().trim();
+
+    appCards.forEach(card => {
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(query) ? "" : "none";
+    });
+  });
+}
+
+
+/* Safe Calculator - No eval() */
+function calculateExpression(expression) {
+  const input = expression.replace(/\s+/g, "");
+
+  if (!input || input.length > 80) {
+    throw new Error("Invalid expression");
+  }
+
+  if (!/^[0-9+\-*/().%]+$/.test(input)) {
+    throw new Error("Invalid characters");
+  }
+
+  let position = 0;
+
+  function parseExpression() {
+    let value = parseTerm();
+
+    while (input[position] === "+" || input[position] === "-") {
+      const operator = input[position++];
+      const next = parseTerm();
+
+      value = operator === "+"
+        ? value + next
+        : value - next;
+    }
+
+    return value;
+  }
+
+  function parseTerm() {
+    let value = parseFactor();
+
+    while (
+      input[position] === "*" ||
+      input[position] === "/" ||
+      input[position] === "%"
+    ) {
+      const operator = input[position++];
+      const next = parseFactor();
+
+      if ((operator === "/" || operator === "%") && next === 0) {
+        throw new Error("Cannot divide by zero");
+      }
+
+      if (operator === "*") value *= next;
+      if (operator === "/") value /= next;
+      if (operator === "%") value %= next;
+    }
+
+    return value;
+  }
+
+  function parseFactor() {
+    if (input[position] === "+") {
+      position++;
+      return parseFactor();
+    }
+
+    if (input[position] === "-") {
+      position++;
+      return -parseFactor();
+    }
+
+    if (input[position] === "(") {
+      position++;
+
+      const value = parseExpression();
+
+      if (input[position] !== ")") {
+        throw new Error("Missing closing bracket");
+      }
+
+      position++;
+      return value;
+    }
+
+    const start = position;
+
+    while (
+      position < input.length &&
+      /[0-9.]/.test(input[position])
+    ) {
+      position++;
+    }
+
+    if (start === position) {
+      throw new Error("Invalid expression");
+    }
+
+    const numberText = input.slice(start, position);
+
+    if ((numberText.match(/\./g) || []).length > 1) {
+      throw new Error("Invalid number");
+    }
+
+    return Number(numberText);
+  }
+
+  const result = parseExpression();
+
+  if (position !== input.length || !Number.isFinite(result)) {
+    throw new Error("Invalid calculation");
+  }
+
+  return Number(result.toFixed(8));
+}
+
+
+/* Calculator Button */
+const calcInput = document.getElementById("quickCalcInput");
+const calcButton = document.getElementById("quickCalcBtn");
+const calcResult = document.getElementById("quickCalcResult");
+
+function runQuickCalculator() {
+  if (!calcInput || !calcResult) return;
+
+  try {
+    const result = calculateExpression(calcInput.value);
+    calcResult.textContent = "Result: " + result;
+  } catch (error) {
+    calcResult.textContent = "Please enter a valid calculation.";
+  }
+}
+
+if (calcButton) {
+  calcButton.addEventListener("click", runQuickCalculator);
+}
+
+if (calcInput) {
+  calcInput.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+      runQuickCalculator();
+    }
+  });
+}
+
+
+/* Theme Toggle */
+const themeToggle = document.getElementById("themeToggle");
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+
+  if (themeToggle) {
+    themeToggle.textContent =
+      theme === "light" ? "☀" : "☾";
+  }
+}
+
+let savedTheme = "dark";
+
+try {
+  savedTheme = localStorage.getItem("howladerTheme") || "dark";
+} catch (error) {
+  savedTheme = "dark";
+}
+
+applyTheme(savedTheme);
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const current =
+      document.documentElement.getAttribute("data-theme") || "dark";
+
+    const next = current === "dark" ? "light" : "dark";
+
+    applyTheme(next);
+
+    try {
+      localStorage.setItem("howladerTheme", next);
+    } catch (error) {
+      console.warn("Theme preference could not be saved.");
+    }
+  });
+}
+
+
+/* Image Preview */
+const imageInput = document.getElementById("imageInput");
+const imagePreview = document.getElementById("imagePreview");
+const imageStatus = document.getElementById("imageStatus");
+
+if (imageInput) {
+  imageInput.addEventListener("change", () => {
+    const file = imageInput.files && imageInput.files[0];
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      imageStatus.textContent = "Please choose an image file.";
+      imageInput.value = "";
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      imageStatus.textContent = "Image must be smaller than 5 MB.";
+      imageInput.value = "";
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = event => {
+      imagePreview.src = event.target.result;
+      imagePreview.style.display = "block";
+      imageStatus.textContent = "Image loaded successfully.";
+    };
+
+    reader.onerror = () => {
+      imageStatus.textContent = "Could not load this image.";
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
+
+
+/* Weather - Open-Meteo */
+const weatherButton = document.getElementById("weatherBtn");
+const weatherStatus = document.getElementById("weatherStatus");
+
+async function loadWeather() {
+  if (!weatherStatus) return;
+
+  if (!navigator.geolocation) {
+    weatherStatus.textContent = "Location is not supported by this browser.";
+    return;
+  }
+
+  weatherStatus.textContent = "Getting your location...";
+
+  navigator.geolocation.getCurrentPosition(
+    async position => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      weatherStatus.textContent = "Loading weather...";
+
+      try {
+        const url =
+          "https://api.open-meteo.com/v1/forecast" +
+          "?latitude=" + latitude +
+          "&longitude=" + longitude +
+          "&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m";
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error("Weather request failed");
+        }
+
+        const data = await response.json();
+        const current = data.current;
+
+        weatherStatus.textContent =
+          "Temperature: " + current.temperature_2m + "°C" +
+          " | Humidity: " + current.relative_humidity_2m + "%" +
+          " | Wind: " + current.wind_speed_10m + " km/h";
+
+      } catch (error) {
+        weatherStatus.textContent = "Weather could not be loaded. Try again.";
+      }
+    },
+
+    () => {
+      weatherStatus.textContent =
+        "Location permission is needed to show local weather.";
+    },
+
+    {
+      enableHighAccuracy: false,
+      timeout: 10000,
+      maximumAge: 300000
+    }
+  );
+}
+
+if (weatherButton) {
+  weatherButton.addEventListener("click", loadWeather);
+}
+
+
+/* Reveal Animation */
+if ("IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.08 }
+  );
+
+  document.querySelectorAll(".section, .app-card").forEach(element => {
+    revealObserver.observe(element);
+  });
+}
+
+
+/* Footer Year */
+const footerYear = document.querySelector("footer p:last-child");
+
+if (footerYear) {
+  footerYear.textContent =
+    "© " + new Date().getFullYear() + " HOWLADER X. All rights reserved.";
+}
+
+</script>
+
 </body>
 </html>
