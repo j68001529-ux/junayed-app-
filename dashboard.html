@@ -1,568 +1,988 @@
 
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090909">
-<title>HOWLADER X — Dashboard</title>
+<meta name="theme-color" content="#080808">
+<title>HOWLADER X — Premium Dashboard</title>
 
 <style>
 :root {
-  --bg:#090909;
-  --panel:#121212;
-  --gold:#d4af37;
-  --gold2:#f5d778;
-  --text:#f5f5f5;
-  --muted:#999;
-  --border:rgba(212,175,55,.2);
+    --bg:#080808;
+    --panel:#111111;
+    --panel2:#191919;
+    --gold:#D4AF37;
+    --gold2:#F5D778;
+    --text:#F5F5F5;
+    --muted:#999999;
+    --border:rgba(212,175,55,.24);
 }
-* {box-sizing:border-box}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 body {
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial,sans-serif;
+    min-height:100vh;
+    padding-bottom:85px;
 }
-a {text-decoration:none;color:inherit}
-.layout {display:flex;min-height:100vh}
-.sidebar {
-  width:245px;
-  background:#0d0d0d;
-  border-right:1px solid var(--border);
-  padding:25px 16px;
-  display:flex;
-  flex-direction:column;
-  gap:25px;
+
+button,a {
+    font-family:inherit;
 }
-.brand {
-  font-size:23px;
-  font-weight:800;
-  color:var(--gold2);
-  letter-spacing:1px;
+
+a {
+    color:inherit;
+    text-decoration:none;
 }
-.brand small {
-  display:block;
-  color:var(--muted);
-  font-size:10px;
-  letter-spacing:3px;
-  margin-top:6px;
+
+button {
+    cursor:pointer;
 }
-.nav-title {
-  color:#777;
-  font-size:10px;
-  letter-spacing:2px;
-  margin:10px 10px;
-}
-.nav a {
-  display:block;
-  padding:13px 12px;
-  border-radius:9px;
-  color:#bbb;
-  margin:4px 0;
-  font-size:14px;
-}
-.nav a:hover,.nav a.active {
-  background:#1c1a13;
-  color:var(--gold2);
-  border:1px solid var(--border);
-}
-.sidebar-bottom {
-  margin-top:auto;
-  color:#777;
-  font-size:11px;
-  line-height:1.7;
-  padding:10px;
-}
-.main {flex:1;min-width:0}
-.topbar {
-  min-height:72px;
-  border-bottom:1px solid var(--border);
-  padding:15px 28px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  flex-wrap:wrap;
-}
-.topbar h2 {font-size:18px;margin:0}
-.account-area {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.profile {
-  border:1px solid var(--border);
-  border-radius:30px;
-  padding:9px 14px;
-  color:var(--gold2);
-  font-size:12px;
-  max-width:220px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-.logout-btn {
-  border:1px solid #8b3434;
-  border-radius:30px;
-  padding:9px 15px;
-  background:#241313;
-  color:#ffaaaa;
-  font-size:12px;
-  cursor:pointer;
-}
-.logout-btn:hover {background:#3a1919}
-.content {
-  max-width:1200px;
-  padding:30px;
-  margin:auto;
-}
-.welcome {
-  background:linear-gradient(120deg,#1b1911,#111);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:30px;
-  margin-bottom:25px;
-  position:relative;
-  overflow:hidden;
-}
-.welcome:after {
-  content:"✦";
-  position:absolute;
-  right:35px;
-  top:15px;
-  font-size:90px;
-  color:rgba(212,175,55,.12);
-}
-.welcome h1 {
-  margin:0 0 12px;
-  color:var(--gold2);
-  font-size:28px;
-}
-.welcome p {
-  color:#aaa;
-  line-height:1.7;
-  max-width:600px;
-  font-size:14px;
-}
-.account-info {
-  margin-top:12px;
-  color:#d4af37;
-  font-size:12px;
-  overflow-wrap:anywhere;
-}
-.section-title {
-  font-size:16px;
-  margin:28px 0 15px;
-}
-.stats {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-}
-.stat,.app-card,.activity {
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:20px;
-}
-.stat-label {color:#999;font-size:12px}
-.stat-number {
-  color:var(--gold2);
-  font-size:30px;
-  font-weight:bold;
-  margin-top:12px;
-}
-.stat-note {color:#777;font-size:11px;margin-top:7px}
-.apps {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-}
-.app-card {
-  display:block;
-  transition:.2s;
-  min-height:155px;
-}
-.app-card:hover {
-  transform:translateY(-4px);
-  border-color:var(--gold);
-  background:#181710;
-}
-.app-icon {
-  font-size:27px;
-  margin-bottom:18px;
-}
-.app-card h3 {
-  margin:0 0 8px;
-  color:var(--gold2);
-  font-size:15px;
-}
-.app-card p {
-  margin:0;
-  color:#999;
-  font-size:12px;
-  line-height:1.6;
-}
-.bottom-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-  margin-top:25px;
-}
-.activity h3 {
-  color:var(--gold2);
-  font-size:15px;
-  margin-top:0;
-}
-.activity p {
-  color:#999;
-  font-size:13px;
-  line-height:1.7;
-}
-.quick-link {
-  display:inline-block;
-  color:var(--gold2);
-  font-size:12px;
-  margin-top:8px;
-}
-.footer {
-  text-align:center;
-  padding:25px;
-  color:#666;
-  font-size:11px;
-}
-#statusMessage {
-  color:var(--gold2);
-  font-size:13px;
-  margin-top:12px;
-}
-@media(max-width:850px) {
-  .sidebar {width:190px}
-  .apps {grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:600px) {
-  .sidebar {
-    width:65px;
-    padding:18px 7px;
+
+.top-header {
+    min-height:65px;
+    padding:12px 17px;
+    display:flex;
+    justify-content:space-between;
     align-items:center;
-  }
-  .brand {font-size:11px;text-align:center}
-  .brand small,.nav-title,.nav-text,.sidebar-bottom {display:none}
-  .nav {width:100%}
-  .nav a {text-align:center;font-size:19px;padding:12px 4px}
-  .topbar {padding:14px}
-  .content {padding:16px}
-  .welcome {padding:23px}
-  .welcome h1 {font-size:23px}
-  .welcome:after {right:10px;font-size:55px}
-  .stats {grid-template-columns:1fr}
-  .apps {grid-template-columns:1fr 1fr;gap:9px}
-  .app-card {padding:14px;min-height:145px}
-  .bottom-grid {grid-template-columns:1fr}
-  .profile {max-width:125px}
-  .logout-btn {padding:9px 11px}
+    background:#0c0c0c;
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+
+.brand-area {
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.brand-icon {
+    width:39px;
+    height:39px;
+    border-radius:11px;
+    display:grid;
+    place-items:center;
+    color:#111;
+    font-size:22px;
+    font-weight:900;
+    background:linear-gradient(135deg,var(--gold),var(--gold2));
+    box-shadow:0 0 16px rgba(212,175,55,.2);
+}
+
+.brand-name {
+    color:var(--gold2);
+    font-size:17px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.brand-subtitle {
+    color:var(--muted);
+    font-size:9px;
+    letter-spacing:2px;
+    margin-top:3px;
+}
+
+.header-actions {
+    display:flex;
+    gap:8px;
+}
+
+.header-icon {
+    width:36px;
+    height:36px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:#151515;
+    color:var(--gold2);
+    font-size:17px;
+}
+
+.dashboard-container {
+    width:92%;
+    max-width:1050px;
+    margin:20px auto;
+}
+
+.hero-banner {
+    min-height:175px;
+    padding:25px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    position:relative;
+    overflow:hidden;
+    border:1px solid var(--border);
+    border-radius:16px;
+    background:
+        radial-gradient(circle at 85% 40%,rgba(212,175,55,.16),transparent 35%),
+        linear-gradient(120deg,#211b0c,#111111 65%);
+    animation:reveal .6s ease;
+}
+
+.hero-content {
+    position:relative;
+    z-index:2;
+}
+
+.hero-label {
+    color:var(--gold);
+    font-size:10px;
+    letter-spacing:3px;
+    margin-bottom:10px;
+}
+
+.hero-banner h1 {
+    color:var(--gold2);
+    font-size:clamp(23px,5vw,34px);
+    line-height:1.2;
+    margin-bottom:9px;
+}
+
+.hero-banner p {
+    color:#c0b89d;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.hero-symbol {
+    color:rgba(245,215,120,.65);
+    font-size:75px;
+    font-weight:900;
+    text-shadow:0 0 25px rgba(212,175,55,.3);
+    flex-shrink:0;
+    animation:floatGold 4s ease-in-out infinite;
+}
+
+.profile-card {
+    margin-top:15px;
+    padding:15px;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    border:1px solid var(--border);
+    border-radius:13px;
+    background:linear-gradient(110deg,#18150c,#111);
+    animation:reveal .7s ease;
+}
+
+.profile-avatar {
+    width:52px;
+    height:52px;
+    flex-shrink:0;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,var(--gold),#7d5b13);
+    color:#111;
+    font-size:25px;
+    font-weight:900;
+    box-shadow:0 0 17px rgba(212,175,55,.2);
+}
+
+.profile-info {
+    min-width:0;
+    flex:1;
+}
+
+.profile-info h2 {
+    color:var(--gold2);
+    font-size:15px;
+    overflow-wrap:anywhere;
+}
+
+.profile-info p {
+    color:var(--muted);
+    font-size:11px;
+    margin-top:5px;
+}
+
+.owner-badge {
+    color:#111;
+    background:linear-gradient(120deg,var(--gold),var(--gold2));
+    padding:7px 9px;
+    border-radius:7px;
+    font-size:9px;
+    font-weight:bold;
+    white-space:nowrap;
+}
+
+@keyframes reveal {
+    from {opacity:0;transform:translateY(12px);}
+    to {opacity:1;transform:translateY(0);}
+}
+
+@keyframes floatGold {
+    0%,100% {transform:translateY(0);}
+    50% {transform:translateY(-7px);}
 }
 </style>
 </head>
 
-<body>
+<style>
+.section-heading {
+    color:var(--gold2);
+    font-size:16px;
+    margin:23px 0 12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
 
-<div class="layout">
+.section-heading span {
+    color:var(--muted);
+    font-size:10px;
+    font-weight:normal;
+}
 
-<aside class="sidebar">
-  <div class="brand">
-    HOWLADER X
-    <small>AI WORKSPACE</small>
-  </div>
+.stats-grid {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:10px;
+}
 
-  <nav class="nav">
-    <div class="nav-title">WORKSPACE</div>
-    <a class="active" href="dashboard.html">⌂ <span class="nav-text">Dashboard</span></a>
-    <a href="chat.html">✦ <span class="nav-text">AI Assistant</span></a>
-    <a href="notes.html">▤ <span class="nav-text">My Notes</span></a>
-    <a href="todo.html">✓ <span class="nav-text">Tasks</span></a>
-    <a href="calendar.html">▦ <span class="nav-text">Calendar</span></a>
+.stat-card {
+    padding:15px 8px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+    text-align:center;
+    transition:.25s;
+}
 
-    <div class="nav-title">ACCOUNT</div>
-    <a href="index.html">← <span class="nav-text">Home</span></a>
-    <a href="admin.html">⚙ <span class="nav-text">Admin Panel</span></a>
-  </nav>
+.stat-card:hover {
+    border-color:var(--gold);
+    transform:translateY(-3px);
+}
 
-  <div class="sidebar-bottom">
-    HOWLADER X<br>
-    Premium Workspace<br>
-    Version 1.0
-  </div>
-</aside>
+.stat-icon {
+    font-size:21px;
+    margin-bottom:9px;
+}
 
-<main class="main">
+.stat-card strong {
+    display:block;
+    color:var(--gold2);
+    font-size:23px;
+}
 
-  <header class="topbar">
-    <h2>Dashboard</h2>
+.stat-card p {
+    color:var(--muted);
+    font-size:10px;
+    margin-top:5px;
+}
 
-    <div class="account-area">
-      <div class="profile" id="profileName">Loading...</div>
-      <button class="logout-btn" id="logoutButton" type="button">
-        Logout ↗
-      </button>
-    </div>
-  </header>
+.info-grid {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+}
 
-  <div class="content">
+.info-card {
+    min-height:125px;
+    padding:15px;
+    background:linear-gradient(145deg,#19160d,#111);
+    border:1px solid var(--border);
+    border-radius:13px;
+}
 
-    <section class="welcome">
-      <h1 id="greeting">স্বাগতম!</h1>
+.info-card .info-icon {
+    color:var(--gold);
+    font-size:23px;
+    margin-bottom:12px;
+}
 
-      <p>
-        তোমার AI ও Productivity Workspace-এ স্বাগতম।
-        এখান থেকে Notes, Tasks এবং AI Assistant ব্যবহার করতে পারবে।
-      </p>
+.info-card h3 {
+    color:var(--gold2);
+    font-size:13px;
+    margin-bottom:7px;
+}
 
-      <div class="account-info" id="accountEmail"></div>
-      <div id="statusMessage" aria-live="polite"></div>
+.info-card p {
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.6;
+}
+
+.clock-time {
+    color:var(--gold2)!important;
+    font-size:22px!important;
+    font-weight:bold;
+    font-variant-numeric:tabular-nums;
+}
+
+.quick-grid {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:10px;
+}
+
+.quick-card {
+    min-height:90px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+    color:var(--gold2);
+    font-size:11px;
+    text-align:center;
+    transition:.25s;
+    padding:10px 5px;
+}
+
+.quick-card:hover {
+    background:#201b0c;
+    border-color:var(--gold);
+    transform:translateY(-3px);
+}
+
+.quick-card .quick-icon {
+    font-size:25px;
+}
+
+.quick-card:active {
+    transform:scale(.96);
+}
+
+@media(max-width:380px) {
+    .stats-grid {
+        gap:6px;
+    }
+
+    .stat-card {
+        padding:12px 4px;
+    }
+
+    .stat-card strong {
+        font-size:19px;
+    }
+
+    .quick-grid {
+        gap:7px;
+    }
+}
+</style>
+
+<main class="dashboard-container">
+
+    <section class="hero-banner">
+        <div class="hero-content">
+            <div class="hero-label">PREMIUM DIGITAL EXPERIENCE</div>
+            <h1>Welcome Back!</h1>
+            <p>Your personal workspace.<br>
+            Everything you need, in one place.</p>
+        </div>
+        <div class="hero-symbol">HX</div>
     </section>
 
-    <h3 class="section-title">Workspace Overview</h3>
-
-    <section class="stats">
-
-      <div class="stat">
-        <div class="stat-label">TOTAL NOTES</div>
-        <div class="stat-number" id="noteCount">—</div>
-        <div class="stat-note">Saved notes on this device</div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-label">TOTAL TASKS</div>
-        <div class="stat-number" id="taskCount">—</div>
-        <div class="stat-note">Available local task data</div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-label">COMPLETED TASKS</div>
-        <div class="stat-number" id="completedCount">—</div>
-        <div class="stat-note">Completed local tasks</div>
-      </div>
-
+    <section class="profile-card">
+        <div class="profile-avatar" id="profileAvatar">H</div>
+        <div class="profile-info">
+            <h2 id="userName">HOWLADER X User</h2>
+            <p id="userEmail">Welcome to your dashboard</p>
+        </div>
+        <div class="owner-badge">MEMBER</div>
     </section>
 
-    <h3 class="section-title">Your Applications</h3>
+    <h3 class="section-heading">
+        Workspace Overview
+        <span>YOUR STATISTICS</span>
+    </h3>
 
-    <section class="apps">
+    <section class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">✓</div>
+            <strong id="taskCount">0</strong>
+            <p>Total Tasks</p>
+        </div>
 
-      <a class="app-card" href="chat.html">
-        <div class="app-icon">✦</div>
-        <h3>AI Assistant</h3>
-        <p>Chat with HOWLADER AI demo assistant.</p>
-      </a>
+        <div class="stat-card">
+            <div class="stat-icon">▤</div>
+            <strong id="noteCount">0</strong>
+            <p>Total Notes</p>
+        </div>
 
-      <a class="app-card" href="notes.html">
-        <div class="app-icon">▤</div>
-        <h3>Smart Notes</h3>
-        <p>Create, edit and organize your notes.</p>
-      </a>
-
-      <a class="app-card" href="todo.html">
-        <div class="app-icon">✓</div>
-        <h3>Task Manager</h3>
-        <p>Manage your daily tasks and progress.</p>
-      </a>
-
-      <a class="app-card" href="calendar.html">
-        <div class="app-icon">▦</div>
-        <h3>Calendar</h3>
-        <p>Open your calendar workspace.</p>
-      </a>
-
-      <a class="app-card" href="admin.html">
-        <div class="app-icon">⚙</div>
-        <h3>Admin Panel</h3>
-        <p>Open the admin demo interface.</p>
-      </a>
-
-      <a class="app-card" href="index.html">
-        <div class="app-icon">⌂</div>
-        <h3>Main Website</h3>
-        <p>Return to the HOWLADER X homepage.</p>
-      </a>
-
+        <div class="stat-card">
+            <div class="stat-icon">◇</div>
+            <strong id="projectCount">0</strong>
+            <p>Projects</p>
+        </div>
     </section>
 
-    <section class="bottom-grid">
+    <h3 class="section-heading">
+        Live Information
+        <span>SMART WIDGETS</span>
+    </h3>
 
-      <div class="activity">
-        <h3>Quick Start</h3>
-        <p>
-          শুরু করতে AI Assistant খুলে প্রশ্ন করো অথবা
-          Notes ও Tasks-এ তোমার কাজ সাজিয়ে রাখো।
-        </p>
-        <a class="quick-link" href="chat.html">
-          Open AI Assistant →
+    <section class="info-grid">
+        <div class="info-card">
+            <div class="info-icon">◷</div>
+            <h3>Digital Clock</h3>
+            <p class="clock-time" id="liveClock">00:00:00</p>
+            <p id="liveDate">Loading date...</p>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon">☁</div>
+            <h3>Weather</h3>
+            <p id="weatherInfo">Weather information</p>
+            <button id="weatherButton" type="button"
+                style="margin-top:10px;padding:7px 10px;background:#D4AF37;color:#111;border:0;border-radius:6px;font-size:10px;">
+                Check Weather
+            </button>
+        </div>
+    </section>
+
+    <h3 class="section-heading">
+        Quick Access
+        <span>FAST ACTIONS</span>
+    </h3>
+
+    <section class="quick-grid">
+        <a href="notes.html" class="quick-card">
+            <span class="quick-icon">▤</span>
+            <span>My Notes</span>
         </a>
-      </div>
 
-      <div class="activity">
-        <h3>System Status</h3>
-        <p>
-          Dashboard-এর Notes ও Tasks-এর পরিসংখ্যান
-          এই ডিভাইসের LocalStorage থেকে নেওয়া হয়।
-          Live server sync এখনো সংযুক্ত নয়।
-        </p>
-        <span class="quick-link">LOCAL MODE</span>
-      </div>
+        <a href="todo.html" class="quick-card">
+            <span class="quick-icon">✓</span>
+            <span>My Tasks</span>
+        </a>
+
+        <a href="projects.html" class="quick-card">
+            <span class="quick-icon">◇</span>
+            <span>Projects</span>
+        </a>
+    </section>
+</main>
+
+<style>
+.application-grid {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:10px;
+}
+
+.application-card {
+    min-height:105px;
+    padding:13px 6px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    text-align:center;
+    background:linear-gradient(145deg,#191919,#0e0e0e);
+    border:1px solid var(--border);
+    border-radius:12px;
+    transition:.25s;
+}
+
+.application-card:hover {
+    border-color:var(--gold);
+    transform:translateY(-4px);
+    box-shadow:0 5px 18px rgba(212,175,55,.09);
+}
+
+.application-icon {
+    font-size:27px;
+    color:var(--gold2);
+}
+
+.application-card span:last-child {
+    color:#ddd;
+    font-size:11px;
+}
+
+.activity-list {
+    display:grid;
+    gap:9px;
+}
+
+.activity-item {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:10px;
+}
+
+.activity-icon {
+    width:35px;
+    height:35px;
+    display:grid;
+    place-items:center;
+    flex-shrink:0;
+    border-radius:9px;
+    background:rgba(212,175,55,.12);
+    color:var(--gold2);
+    font-size:17px;
+}
+
+.activity-text {
+    flex:1;
+    min-width:0;
+}
+
+.activity-text h4 {
+    color:#eee;
+    font-size:12px;
+    margin-bottom:5px;
+}
+
+.activity-text p {
+    color:var(--muted);
+    font-size:10px;
+}
+
+.progress-overview {
+    padding:16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+}
+
+.progress-overview-top {
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:12px;
+    color:var(--gold2);
+    font-size:12px;
+}
+
+.overview-track {
+    width:100%;
+    height:8px;
+    background:#292929;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.overview-fill {
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,var(--gold),var(--gold2));
+    border-radius:10px;
+    transition:width .5s ease;
+}
+
+.bottom-navigation {
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    min-height:65px;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    background:#101010;
+    border-top:1px solid var(--border);
+    z-index:30;
+    padding:8px 4px;
+}
+
+.bottom-navigation a {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:5px;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.bottom-navigation a span:first-child {
+    font-size:19px;
+}
+
+.bottom-navigation a.active {
+    color:var(--gold2);
+}
+
+.logout-button {
+    width:100%;
+    margin-top:18px;
+    padding:12px;
+    border:1px solid rgba(255,100,100,.3);
+    border-radius:9px;
+    background:#1b1010;
+    color:#ff9999;
+    font-weight:bold;
+}
+
+.footer-note {
+    text-align:center;
+    color:#666;
+    font-size:10px;
+    padding:22px 5px 10px;
+}
+
+@media(max-width:350px) {
+    .application-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .hero-symbol {
+        font-size:52px;
+    }
+
+    .owner-badge {
+        font-size:8px;
+        padding:6px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    *,*::before,*::after {
+        animation:none!important;
+        transition:none!important;
+    }
+}
+</style>
+
+<main class="dashboard-container">
+
+    <h3 class="section-heading">
+        Applications
+        <span>YOUR DIGITAL TOOLS</span>
+    </h3>
+
+    <section class="application-grid">
+
+        <a href="calculator.html" class="application-card">
+            <span class="application-icon">▦</span>
+            <span>Calculator</span>
+        </a>
+
+        <a href="stopwatch.html" class="application-card">
+            <span class="application-icon">◷</span>
+            <span>Stopwatch</span>
+        </a>
+
+        <a href="music.html" class="application-card">
+            <span class="application-icon">♫</span>
+            <span>Music Player</span>
+        </a>
+
+        <a href="chat.html" class="application-card">
+            <span class="application-icon">✧</span>
+            <span>AI Assistant</span>
+        </a>
+
+        <a href="calendar.html" class="application-card">
+            <span class="application-icon">▦</span>
+            <span>Calendar</span>
+        </a>
+
+        <a href="notes.html" class="application-card">
+            <span class="application-icon">▤</span>
+            <span>Notes</span>
+        </a>
+
+        <a href="todo.html" class="application-card">
+            <span class="application-icon">✓</span>
+            <span>To-Do List</span>
+        </a>
+
+        <a href="projects.html" class="application-card">
+            <span class="application-icon">◇</span>
+            <span>Project Studio</span>
+        </a>
+
+        <a href="admin.html" class="application-card">
+            <span class="application-icon">⚙</span>
+            <span>Admin Panel</span>
+        </a>
 
     </section>
 
-  </div>
+    <h3 class="section-heading">
+        Project Progress
+        <span>OVERVIEW</span>
+    </h3>
 
-  <footer class="footer">
-    © 2026 HOWLADER X · Premium AI Workspace
-  </footer>
+    <section class="progress-overview">
+        <div class="progress-overview-top">
+            <span>Completed Tasks</span>
+            <strong id="taskProgressText">0%</strong>
+        </div>
+        <div class="overview-track">
+            <div class="overview-fill" id="taskProgressFill"></div>
+        </div>
+    </section>
+
+    <h3 class="section-heading">
+        Recent Activity
+        <span>WORKSPACE ACTIVITY</span>
+    </h3>
+
+    <section class="activity-list" id="activityList">
+        <div class="activity-item">
+            <div class="activity-icon">◇</div>
+            <div class="activity-text">
+                <h4>Welcome to HOWLADER X</h4>
+                <p>Your workspace is ready.</p>
+            </div>
+        </div>
+    </section>
+
+    <button class="logout-button" id="logoutButton" type="button">
+        Log Out
+    </button>
+
+    <div class="footer-note">
+        HOWLADER X · PREMIUM DIGITAL PLATFORM
+    </div>
 
 </main>
-</div>
+
+<nav class="bottom-navigation">
+    <a href="index.html">
+        <span>⌂</span>
+        <span>Home</span>
+    </a>
+    <a href="dashboard.html" class="active">
+        <span>▦</span>
+        <span>Dashboard</span>
+    </a>
+    <a href="projects.html">
+        <span>◇</span>
+        <span>Projects</span>
+    </a>
+    <a href="notes.html">
+        <span>▤</span>
+        <span>Notes</span>
+    </a>
+</nav>
 
 <script type="module">
-
 import { auth } from "./firebase.js";
-
 import {
-  onAuthStateChanged,
-  signOut
+    onAuthStateChanged,
+    signOut
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-const greeting = document.getElementById("greeting");
-const profile = document.getElementById("profileName");
-const accountEmail = document.getElementById("accountEmail");
-const statusMessage = document.getElementById("statusMessage");
-const logoutButton = document.getElementById("logoutButton");
+const $ = id => document.getElementById(id);
 
-// Firebase login verification
-onAuthStateChanged(auth, (user) => {
+function updateClock() {
+    const now = new Date();
 
-  if (!user) {
-    window.location.replace("login.html");
-    return;
-  }
+    $("liveClock").textContent =
+        now.toLocaleTimeString("en-US", {
+            hour12: true,
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        });
 
-  const email = user.email || "";
-  const name =
-    user.displayName ||
-    (email ? email.split("@")[0] : "User");
+    $("liveDate").textContent =
+        now.toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+        });
+}
 
-  greeting.textContent = "স্বাগতম, " + name + "!";
-  profile.textContent = name;
-  accountEmail.textContent = email
-    ? "Account: " + email
-    : "Account verified";
+updateClock();
+setInterval(updateClock, 1000);
 
-  localStorage.setItem("howladerUserName", name);
-  localStorage.setItem("howladerUserEmail", email);
+function readStorage(key) {
+    try {
+        const value = JSON.parse(localStorage.getItem(key) || "[]");
+        return Array.isArray(value) ? value : [];
+    } catch {
+        return [];
+    }
+}
 
-  statusMessage.textContent = "Firebase account connected";
+function updateStatistics() {
+    const tasks = readStorage("howladerTasksV1");
+    const notes = readStorage("howladerNotesV1");
+    const projects = readStorage("howladerCustomProjectsV1");
+
+    $("taskCount").textContent = tasks.length;
+    $("noteCount").textContent = notes.length;
+    $("projectCount").textContent = projects.length;
+
+    const completed = tasks.filter(task =>
+        task &&
+        (task.completed === true ||
+         task.status === "Completed" ||
+         task.done === true)
+    ).length;
+
+    const percentage = tasks.length
+        ? Math.round((completed / tasks.length) * 100)
+        : 0;
+
+    $("taskProgressText").textContent = percentage + "%";
+    $("taskProgressFill").style.width = percentage + "%";
+
+    renderActivity(notes, tasks, projects);
+}
+
+function renderActivity(notes, tasks, projects) {
+    const list = $("activityList");
+    list.replaceChildren();
+
+    const activities = [
+        {
+            icon: "✓",
+            title: "Tasks",
+            detail: tasks.length + " tasks in your workspace."
+        },
+        {
+            icon: "▤",
+            title: "Notes",
+            detail: notes.length + " notes saved."
+        },
+        {
+            icon: "◇",
+            title: "Projects",
+            detail: projects.length + " projects available."
+        }
+    ];
+
+    activities.forEach(activity => {
+        const item = document.createElement("div");
+        item.className = "activity-item";
+
+        const icon = document.createElement("div");
+        icon.className = "activity-icon";
+        icon.textContent = activity.icon;
+
+        const content = document.createElement("div");
+        content.className = "activity-text";
+
+        const title = document.createElement("h4");
+        title.textContent = activity.title;
+
+        const detail = document.createElement("p");
+        detail.textContent = activity.detail;
+
+        content.append(title, detail);
+        item.append(icon, content);
+        list.appendChild(item);
+    });
+}
+
+onAuthStateChanged(auth, user => {
+    if (!user) {
+        location.replace("login.html");
+        return;
+    }
+
+    const name = user.displayName || "HOWLADER X User";
+    const email = user.email || "Account active";
+
+    $("userName").textContent = name;
+    $("userEmail").textContent = email;
+    $("profileAvatar").textContent =
+        name.trim().charAt(0).toUpperCase() || "H";
+
+    updateStatistics();
 });
 
-// Logout
-logoutButton.addEventListener("click", async () => {
-
-  logoutButton.disabled = true;
-  logoutButton.textContent = "Logging out...";
-
-  try {
-
-    await signOut(auth);
-
-    localStorage.removeItem("howladerUserName");
-    localStorage.removeItem("howladerUserEmail");
-
-    window.location.replace("login.html");
-
-  } catch (error) {
-
-    statusMessage.textContent =
-      "লগআউট করা যায়নি। আবার চেষ্টা করো।";
-
-    logoutButton.disabled = false;
-    logoutButton.textContent = "Logout ↗";
-
-  }
-
-});
-
-// Read saved local data
-function readArray(keys) {
-
-  for (const key of keys) {
+$("logoutButton").addEventListener("click", async () => {
+    const confirmed = confirm("Are you sure you want to log out?");
+    if (!confirmed) return;
 
     try {
-
-      const value = JSON.parse(
-        localStorage.getItem(key) || "null"
-      );
-
-      if (Array.isArray(value)) return value;
-
-      if (value && Array.isArray(value.tasks)) {
-        return value.tasks;
-      }
-
-      if (value && Array.isArray(value.notes)) {
-        return value.notes;
-      }
-
+        await signOut(auth);
+        location.replace("login.html");
     } catch (error) {
-      // Ignore invalid local data
+        alert("Logout failed. Please try again.");
+        console.error(error);
+    }
+});
+
+window.addEventListener("pageshow", updateStatistics);
+
+$("weatherButton").addEventListener("click", () => {
+    const output = $("weatherInfo");
+
+    if (!navigator.geolocation) {
+        output.textContent = "Location is not supported by this browser.";
+        return;
     }
 
-  }
+    output.textContent = "Getting your weather...";
 
-  return null;
-}
+    navigator.geolocation.getCurrentPosition(
+        async position => {
+            try {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
 
-const notes = readArray(["howladerNotesV1"]);
+                const response = await fetch(
+                    "https://api.open-meteo.com/v1/forecast?latitude=" +
+                    lat + "&longitude=" + lon +
+                    "&current=temperature_2m,relative_humidity_2m,weather_code"
+                );
 
-const tasks = readArray([
-  "howladerTasksV1",
-  "howladerTodoV1",
-  "todoList",
-  "tasks"
-]);
+                if (!response.ok) {
+                    throw new Error("Weather request failed");
+                }
 
-document.getElementById("noteCount").textContent =
-  notes ? notes.length : "0";
+                const data = await response.json();
+                const current = data.current;
 
-if (tasks) {
+                const temperature = current.temperature_2m;
+                const humidity = current.relative_humidity_2m;
+                const code = current.weather_code;
 
-  document.getElementById("taskCount").textContent =
-    tasks.length;
+                let condition = "Current weather";
 
-  const completed = tasks.filter(task => {
+                if (code === 0) condition = "Clear sky";
+                else if ([1, 2, 3].includes(code)) condition = "Cloudy";
+                else if ([45, 48].includes(code)) condition = "Foggy";
+                else if (code >= 51 && code <= 67) condition = "Rain";
+                else if (code >= 71 && code <= 77) condition = "Snow";
+                else if (code >= 80 && code <= 82) condition = "Rain showers";
+                else if (code >= 95) condition = "Thunderstorm";
 
-    if (typeof task === "object" && task !== null) {
+                output.textContent =
+                    condition + " · " + temperature +
+                    "°C · Humidity " + humidity + "%";
 
-      return task.completed === true ||
-             task.done === true ||
-             task.status === "completed";
-
-    }
-
-    return false;
-
-  }).length;
-
-  document.getElementById("completedCount").textContent =
-    completed;
-
-} else {
-
-  document.getElementById("taskCount").textContent = "—";
-  document.getElementById("completedCount").textContent = "—";
-
-}
+            } catch (error) {
+                output.textContent = "Unable to load weather right now.";
+                console.error(error);
+            }
+        },
+        error => {
+            output.textContent =
+                error.code === 1
+                    ? "Please allow location permission."
+                    : "Location unavailable. Try again.";
+        },
+        {
+            enableHighAccuracy: false,
+            timeout: 12000,
+            maximumAge: 300000
+        }
+    );
+});
 
 </script>
-
 </body>
 </html>
+
+  
